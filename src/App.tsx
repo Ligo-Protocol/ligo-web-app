@@ -123,8 +123,29 @@ function App() {
     const privateKey = await rpc.getPrivateKey();
     console.log(privateKey);
   };
+
+  // Ceramic Tile Document functions
+  const generateSeed = async () => {
+    if (!provider) {
+      console.log("provider not initialized yet");
+      return;
+    }
+    function rng(){
+      let uID = '';
+          let length = 64;
+      let possible = 'abcdef0123456789';
+      for (let i = 0; i < length; i++) {
+          uID += possible.charAt(Math.floor(Math.random() * possible.length));
+      }
+      return uID;
+    }
+    const seed = rng();
+    console.log(seed);
+  };
+
+
   const loggedInView = (
-    <>
+    <><div>
       <button onClick={getUserInfo} className="card">
         Get User Info
       </button>
@@ -146,9 +167,17 @@ function App() {
       <button onClick={getPrivateKey} className="card">
         Get Private Key
       </button>
+      </div>
+      <div>
+      <button onClick={generateSeed} className="card">
+        Generate Seed
+      </button>
+      </div>
+      <div>
       <button onClick={logout} className="card">
         Log Out
       </button>
+      </div>
 
       <div id="console" style={{ whiteSpace: "pre-line" }}>
         <p style={{ whiteSpace: "pre-line" }}></p>
