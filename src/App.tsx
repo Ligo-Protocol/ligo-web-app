@@ -1,5 +1,4 @@
-import * as React from 'react';
-import Auth from './Auth/Auth';
+import Auth from './features/authentication/web3auth';
 
 export interface IAppProps {
 }

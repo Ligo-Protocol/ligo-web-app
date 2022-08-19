@@ -169,7 +169,7 @@ const createCeramicTileDoc = async() => {
     // 4. Create TileDocument
     const doc = await TileDocument.create(ceramic, 
     { 
-    "description": 'This is the description', 
+    "description": 'This is a sample entry of JSON data for the schema', 
     "image" : "https://image.com/img12.img", 
     "itemOffered" : {
       "vehicleIdentificationNumber" : "19749301501751",

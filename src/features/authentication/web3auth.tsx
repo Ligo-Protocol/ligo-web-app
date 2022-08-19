@@ -1,10 +1,10 @@
 import { useEffect, useState } from "react";
 import { Web3Auth } from "@web3auth/web3auth";
 import { CHAIN_NAMESPACES, SafeEventEmitterProvider } from "@web3auth/base";
-import RPC from "../web3RPC";
-import "../App.css";
+import RPC from "../../lib/web3RPC";
+import "../../assets/css/App.css";
 
-import { createCeramicTileDoc } from "../Utils/CreateCeramicTileDoc";
+import { createCeramicTileDoc } from "../listings/createCeramicTile";
 
 const clientId = "BJz8jmxX2qjfYVLZtN6wDaoPiy2cEgQd_dBFvhjvmJGp0g0Ms-SLlI0BC61D1JoBligqVR-K7JXZ_3ejgzLlaiI"; // get from https://dashboard.web3auth.io
 
