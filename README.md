@@ -1,7 +1,7 @@
 
 ### `npm install`
 
-Install dependencies
+Install dependencies.
 
 ### `npm start`
 
