@@ -6,7 +6,7 @@ import "../../assets/css/App.css";
 
 import { createCeramicTileDoc } from "../listings/createCeramicTile";
 
-const clientId = "BJz8jmxX2qjfYVLZtN6wDaoPiy2cEgQd_dBFvhjvmJGp0g0Ms-SLlI0BC61D1JoBligqVR-K7JXZ_3ejgzLlaiI"; // get from https://dashboard.web3auth.io
+const clientId:any = process.env.REACT_APP_CLIENT_ID; // get from https://dashboard.web3auth.io
 
 function Auth() {
   const [web3auth, setWeb3auth] = useState<Web3Auth | null>(null);
