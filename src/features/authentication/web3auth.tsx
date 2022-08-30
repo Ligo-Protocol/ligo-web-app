@@ -1,10 +1,11 @@
 import { useEffect, useState } from "react";
 import { Web3Auth } from "@web3auth/web3auth";
 import { CHAIN_NAMESPACES, SafeEventEmitterProvider } from "@web3auth/base";
-import RPC from "../../lib/web3RPC";
+// import RPC from "../../lib/web3RPC";
 import "../../assets/css/App.css";
+import UploadImage from "../listings/uploadImage";
 
-import { createCeramicTileDoc } from "../listings/createCeramicTile";
+// import { createCeramicTileDoc } from "../listings/createCeramicTile";
 
 const clientId:any = process.env.REACT_APP_CLIENT_ID; // get from https://dashboard.web3auth.io
 
@@ -48,15 +49,6 @@ function Auth() {
     console.log("TEST: logged in!");
   };
 
-  const getUserInfo = async () => {
-    if (!web3auth) {
-      console.log("web3auth not initialized yet");
-      return;
-    }
-    const user = await web3auth.getUserInfo();
-    console.log(user);
-  };
-
   const logout = async () => {
     if (!web3auth) {
       console.log("web3auth not initialized yet");
@@ -66,125 +58,95 @@ function Auth() {
     setProvider(null);
   };
 
-  const getChainId = async () => {
-    if (!provider) {
-      console.log("provider not initialized yet");
-      return;
-    }
-    const rpc = new RPC(provider);
-    const chainId = await rpc.getChainId();
-    console.log(chainId);
-  };
-  const getAccounts = async () => {
-    if (!provider) {
-      console.log("provider not initialized yet");
-      return;
-    }
-    const rpc = new RPC(provider);
-    const address = await rpc.getAccounts();
-    console.log(address);
-  };
+  // const getUserInfo = async () => {
+  //   if (!web3auth) {
+  //     console.log("web3auth not initialized yet");
+  //     return;
+  //   }
+  //   const user = await web3auth.getUserInfo();
+  //   console.log(user);
+  // };
 
-  const getBalance = async () => {
-    if (!provider) {
-      console.log("provider not initialized yet");
-      return;
-    }
-    const rpc = new RPC(provider);
-    const balance = await rpc.getBalance();
-    console.log(balance);
-  };
+  // const getChainId = async () => {
+  //   if (!provider) {
+  //     console.log("provider not initialized yet");
+  //     return;
+  //   }
+  //   const rpc = new RPC(provider);
+  //   const chainId = await rpc.getChainId();
+  //   console.log(chainId);
+  // };
 
-  const sendTransaction = async () => {
-    if (!provider) {
-      console.log("provider not initialized yet");
-      return;
-    }
-    const rpc = new RPC(provider);
-    const receipt = await rpc.sendTransaction();
-    console.log(receipt);
-  };
+  // const getAccounts = async () => {
+  //   if (!provider) {
+  //     console.log("provider not initialized yet");
+  //     return;
+  //   }
+  //   const rpc = new RPC(provider);
+  //   const address = await rpc.getAccounts();
+  //   console.log(address);
+  // };
 
-  const signMessage = async () => {
-    if (!provider) {
-      console.log("provider not initialized yet");
-      return;
-    }
-    const rpc = new RPC(provider);
-    const signedMessage = await rpc.signMessage();
-    console.log(signedMessage);
-  };
+  // const getBalance = async () => {
+  //   if (!provider) {
+  //     console.log("provider not initialized yet");
+  //     return;
+  //   }
+  //   const rpc = new RPC(provider);
+  //   const balance = await rpc.getBalance();
+  //   console.log(balance);
+  // };
 
-  const getPrivateKey = async () => {
-    if (!provider) {
-      console.log("provider not initialized yet");
-      return;
-    }
-    const rpc = new RPC(provider);
-    const privateKey = await rpc.getPrivateKey();
-    console.log(privateKey);
-  };
+  // const sendTransaction = async () => {
+  //   if (!provider) {
+  //     console.log("provider not initialized yet");
+  //     return;
+  //   }
+  //   const rpc = new RPC(provider);
+  //   const receipt = await rpc.sendTransaction();
+  //   console.log(receipt);
+  // };
 
-  const loggedInView = (
-    <><div>
-      <button onClick={getUserInfo} className="card">
-        Get User Info
-      </button>
-      <button onClick={getChainId} className="card">
-        Get Chain ID
-      </button>
-      <button onClick={getAccounts} className="card">
-        Get Accounts
-      </button>
-      <button onClick={getBalance} className="card">
-        Get Balance
-      </button>
-      <button onClick={sendTransaction} className="card">
-        Send Transaction
-      </button>
-      <button onClick={signMessage} className="card">
-        Sign Message
-      </button>
-      <button onClick={getPrivateKey} className="card">
-        Get Private Key
-      </button>
-      </div>
-      <div>
-      <button onClick={createCeramicTileDoc} className="card">
-        Create JSON listing as Cercamic Tile Document
-      </button>
-      </div>
-      <div>
-      <button onClick={logout} className="card">
-        Log Out
-      </button>
-      </div>
+  // const signMessage = async () => {
+  //   if (!provider) {
+  //     console.log("provider not initialized yet");
+  //     return;
+  //   }
+  //   const rpc = new RPC(provider);
+  //   const signedMessage = await rpc.signMessage();
+  //   console.log(signedMessage);
+  // };
 
-      <div id="console" style={{ whiteSpace: "pre-line" }}>
-        <p style={{ whiteSpace: "pre-line" }}></p>
-      </div>
+  // const getPrivateKey = async () => {
+  //   if (!provider) {
+  //     console.log("provider not initialized yet");
+  //     return;
+  //   }
+  //   const rpc = new RPC(provider);
+  //   const privateKey = await rpc.getPrivateKey();
+  //   console.log(privateKey);
+  // };
+
+  if (provider) {
+    return (
+    <>
+    <div>
+    <UploadImage/>
+    </div>
+    <div>
+    <button onClick={logout} className="card">
+      Log Out
+    </button>
+    </div>
     </>
-  );
+    );
+  }
 
-  const unloggedInView = (
+  return (
+    <div>
     <button onClick={login} className="card">
       Login
     </button>
-  );
-
-  return (
-    <div className="container">
-      <h1 className="title">
-        Ligo Protocol
-      </h1>
-
-      <div className="grid">{provider ? loggedInView : unloggedInView}</div>
-
-      <footer className="footer">
-        <a href="https://github.com/Ligo-Protocol/" target="_blank" rel="noopener noreferrer">
-          Source code: Ligo Protocol
-        </a>
-      </footer>
     </div>
   );
 }

@@ -2,7 +2,7 @@ import process from 'process'
 import { useState } from 'react';
 import { Web3Storage } from 'web3.storage'
 
-function uploadImage() {
+function UploadImage() {
     
   const [selectedFile, setSelectedFile]: any= useState();
 
@@ -34,5 +34,5 @@ function uploadImage() {
     )
 }
 
-export default uploadImage;
+export default UploadImage;
 
