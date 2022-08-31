@@ -98,6 +98,24 @@ const createCeramicDoc = async() => {
       }
     `)
     console.log(fetchResult)
+    
+    // Fetch a specific offer by ID
+    const fetchResult1 = await compose.executeQuery(`
+      query {
+        node(id: "kjzl6kcym7w8y73zeefuu28gqvtu1qd210oyid7ft8rqwo3re1w89tdccooag1b") {
+          id
+          ... on Offer {
+            seller {
+              id
+            }
+            description
+            image
+          }
+        }
+      }
+
+    `)
+    console.log(fetchResult1)
   };
 
 export { createCeramicDoc };
