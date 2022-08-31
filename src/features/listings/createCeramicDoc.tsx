@@ -1,5 +1,3 @@
-import { CeramicClient } from '@ceramicnetwork/http-client'
-import { TileDocument } from '@ceramicnetwork/stream-tile'
 import { DID } from 'dids'
 import { Ed25519Provider } from 'key-did-provider-ed25519'
 import { getResolver } from 'key-did-resolver'
@@ -72,7 +70,7 @@ const createCeramicDoc = async() => {
     console.log(viewerResult)
     
     // Create document
-    const result = await compose.executeQuery(`
+    const createResult = await compose.executeQuery(`
       mutation CreateOffer($content: OfferInput!) {
         createOffer(input:{content:$content}) {
           clientMutationId
@@ -80,11 +78,26 @@ const createCeramicDoc = async() => {
       }
     `, {content: offer})
     
-    console.log(result)
+    console.log(createResult)
 
-    {/* // 5. Loading TileDocument
-    const loadDoc = await (await TileDocument.load(ceramic, doc.id.baseID)).content;
-    console.log("Loaded Doc", loadDoc); */}
+    // Fetch offers
+    const fetchResult = await compose.executeQuery(`
+      query {
+        offerIndex(first: 5) {
+          edges {
+            node {
+              id
+              seller {
+                id
+              }
+              description
+              image
+            }
+          }
+        }
+      }
+    `)
+    console.log(fetchResult)
   };
 
 export { createCeramicDoc };
