@@ -4,7 +4,7 @@ import { CHAIN_NAMESPACES, SafeEventEmitterProvider } from "@web3auth/base";
 import RPC from "../../lib/web3RPC";
 import "../../assets/css/App.css";
 
-import { createCeramicTileDoc } from "../listings/createCeramicTile";
+import { createCeramicDoc } from "../listings/createCeramicDoc";
 
 const clientId = "BJz8jmxX2qjfYVLZtN6wDaoPiy2cEgQd_dBFvhjvmJGp0g0Ms-SLlI0BC61D1JoBligqVR-K7JXZ_3ejgzLlaiI"; // get from https://dashboard.web3auth.io
 
@@ -150,8 +150,8 @@ function Auth() {
       </button>
       </div>
       <div>
-      <button onClick={createCeramicTileDoc} className="card">
-        Create JSON listing as Cercamic Tile Document
+      <button onClick={createCeramicDoc} className="card">
+        Create JSON listing as Ceramic Document using ComposeDB
       </button>
       </div>
       <div>
