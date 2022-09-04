@@ -1,4 +1,4 @@
-import Auth from './features/authentication/web3auth';
+import { Home } from './pages/Home';
 
 export interface IAppProps {
 }
@@ -6,7 +6,7 @@ export interface IAppProps {
 export default function App (props: IAppProps) {
   return (
     <div>
-      <Auth/>
+      <Home/>
     </div>
   );
 }
