@@ -9,12 +9,14 @@ const offer: Offer = {
   description: "This is a sample entry of JSON data for the schema",
   image: "https://image.com/img12.img",
   itemOffered: {
-    modelDate: "2019",
+    modelDate: new Date("2019"),
     vehicleIdentificationNumber: "5YJ3E1EA1KF064316",
     manufacturer: {
+      "@type": "Organization",
       legalName: "Tesla, Inc.",
     },
     brand: {
+      "@type": "Brand",
       name: "Tesla",
     },
     model: "Model 3",
@@ -22,6 +24,7 @@ const offer: Offer = {
   },
   seller: "did:example:hello",
   areaServed: {
+    "@type": "GeoShape",
     postalCode: "81111",
   },
   priceSpecification: {
@@ -29,6 +32,7 @@ const offer: Offer = {
     priceCurrency: "USD",
   },
   advanceBookingRequirement: {
+    "@type": "QuantitativeValue",
     value: 5,
     unitCode: "HUR",
   },

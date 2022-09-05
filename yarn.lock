@@ -1984,9 +1984,9 @@
   resolved "https://registry.yarnpkg.com/@leichtgewicht/ip-codec/-/ip-codec-2.0.4.tgz#b2ac626d6cb9c8718ab459166d4bb405b8ffa78b"
   integrity sha512-Hcv+nVC0kZnQ3tD9GVu5xSMR4VVYOteQIr/hwFPVEvPdlXqgGEuRjiheChHgdM+JyqdgNcmzZOX/tnl0JOiI7A==
 
-"@ligo/ts-vocab@https://github.com/Ligo-Protocol/ts-ligo-vocab.git":
+"@ligo/ts-vocab@https://github.com/Ligo-Protocol/ts-ligo-vocab.git#v0.1.1":
   version "0.1.0"
-  resolved "https://github.com/Ligo-Protocol/ts-ligo-vocab.git#4f64ffc5d718e79b9f8bc6ba8064ad3e37085a24"
+  resolved "https://github.com/Ligo-Protocol/ts-ligo-vocab.git#78a742f366e032220b28a3ea55e852e99c00aba2"
   dependencies:
     schema-dts "^1.1.0"
 
