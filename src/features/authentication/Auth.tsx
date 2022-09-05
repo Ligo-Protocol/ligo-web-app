@@ -5,6 +5,7 @@ import RPC from "../../lib/web3RPC";
 import "../../assets/css/App.css";
 import UploadImage from "../listings/uploadImage";
 import { Login } from "./Login";
+// import { createCeramicDoc } from "../listings/createCeramicDoc";
 
 
 const clientId:any = process.env.REACT_APP_CLIENT_ID; // get from https://dashboard.web3auth.io

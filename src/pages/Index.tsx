@@ -7,6 +7,7 @@ import {
   Route,
 } from "react-router-dom";
 import { Contact } from "./Contact";
+import ListForm from "../features/listings/ListForm";
 
 export function Index(){
     return(
@@ -16,6 +17,7 @@ export function Index(){
                     <Route path="listings" element={<Auth/>}/>
                     <Route path="about" element={<About/>}/>
                     <Route path="contact" element={<Contact/>}/>
+                    <Route path="form" element={<ListForm/>}/>
                 </Routes>
             </BrowserRouter>
     )

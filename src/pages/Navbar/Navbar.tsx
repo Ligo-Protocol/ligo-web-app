@@ -32,10 +32,10 @@ const ResponsiveAppBar = () => {
                   Ligo Protocol
                 </Typography>
                   <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' },justifyContent:'right', alignItems:'right' }}>
-                              <Button variant="contained">About</Button>
-                              <Button variant="contained">Contact</Button>
-                              <Button variant="contained" rel="noopener noreferrer" href="https://ligo-book.codyhatfield.me/" target="_blank">Docs</Button>
-                              <Button variant="contained">Login</Button>
+                              <Button style={{ background: '#2E3B55' }} variant="contained">About</Button>
+                              <Button style={{ background: '#2E3B55' }} variant="contained">Contact</Button>
+                              <Button style={{ background: '#2E3B55' }} variant="contained" rel="noopener noreferrer" href="https://ligo-book.codyhatfield.me/" target="_blank">Docs</Button>
+                              <Button style={{ background: '#2E3B55' }} variant="contained">Login</Button>
                   </Box>
         </Toolbar>
       </Container>
