@@ -6,6 +6,9 @@ import Select from "@material-ui/core/Select";
 import MenuItem from "@material-ui/core/MenuItem";
 import Button from "@material-ui/core/Button";
 
+import { Offer } from "../ts-ligo-vocab/src/Offer";
+import { createCeramicDoc } from "./createCeramicDoc";
+
 const defaultValues = {    
   description: '',
   image: '',
@@ -18,8 +21,11 @@ const defaultValues = {
   value: 0,
   unitCode: "",
 };
+
+
 const ListForm = () => {
   const [formValues, setFormValues] = useState(defaultValues);
+
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setFormValues({
@@ -27,10 +33,26 @@ const ListForm = () => {
       [name]: value,
     });
   };
-  const handleSubmit = (event) => {
+
+  const handleSubmit = async (event) => {
     event.preventDefault();
     console.log(formValues);
+    const listoffer: Offer = {
+      description: formValues.description,
+      image: formValues.image,
+      itemOffered: {
+        model: formValues.model
+      },
+      seller: formValues.seller,
+      priceSpecification: {
+        price: formValues.price,
+        priceCurrency: "USD",
+      }
+    };
+    const listCreator = await createCeramicDoc(listoffer);
+    console.log(listCreator);
   };
+
   return (
     <form onSubmit={handleSubmit}>
       <Grid container alignItems="center" justify="center" direction="column">
@@ -98,7 +120,7 @@ const ListForm = () => {
           <TextField
             id="postalcode-input"
             name="postalcode"
-            label="Postalcode"
+            label="Area Served Postalcode"
             type="text"
             value={formValues.postalcode}
             onChange={handleInputChange}

@@ -3,38 +3,38 @@ import { Ed25519Provider } from 'key-did-provider-ed25519'
 import { getResolver } from 'key-did-resolver'
 import { ComposeClient } from '@composedb/client'
 import { definition } from '../../__generated__/definition.js'
-import { Offer } from "../ts-ligo-vocab/src/Offer";
+// import { Offer } from "../ts-ligo-vocab/src/Offer";
 
-const offer: Offer = {
-  description: "This is a sample entry of JSON data for the schema",
-  image: "https://image.com/img12.img",
-  itemOffered: {
-    // modelDate: '01-01-2019',
-    // vehicleIdentificationNumber: "5YJ3E1EA1KF064316",
-    // manufacturer: {
-    //   legalName: "Tesla, Inc.",
-    // },
-    // brand: {
-    //   name: "Tesla",
-    // },
-    model: "Model 3",
-    vehicleConfiguration: "Standard Range Plus",
-  },
-  seller: "did:example:hello",
-  // areaServed: {
-  //   postalCode: "81111",
-  // },
-  priceSpecification: {
-    price: 1000,
-    priceCurrency: "USD",
-  },
-  // advanceBookingRequirement: {
-  //   value: 5,
-  //   unitCode: "HUR",
-  // },
-};
+// const offer: Offer = {
+//   description: "This is a sample entry of JSON data for the schema",
+//   image: "https://image.com/img12.img",
+//   itemOffered: {
+//     // modelDate: '01-01-2019',
+//     // vehicleIdentificationNumber: "5YJ3E1EA1KF064316",
+//     // manufacturer: {
+//     //   legalName: "Tesla, Inc.",
+//     // },
+//     // brand: {
+//     //   name: "Tesla",
+//     // },
+//     model: "Model 3",
+//     vehicleConfiguration: "Standard Range Plus",
+//   },
+//   seller: "did:example:hello",
+//   // areaServed: {
+//   //   postalCode: "81111",
+//   // },
+//   priceSpecification: {
+//     price: 1000,
+//     priceCurrency: "USD",
+//   },
+//   // advanceBookingRequirement: {
+//   //   value: 5,
+//   //   unitCode: "HUR",
+//   // },
+// };
 
-const createCeramicDoc = async() => {
+const createCeramicDoc = async(offer) => {
 
     // Connect, Generate Seed and Authenticate
     const compose = new ComposeClient({ ceramic: 'https://ceramic-clay.oort.codyhatfield.me', definition: definition as any })
