@@ -9,19 +9,18 @@ import Button from "@material-ui/core/Button";
 import { Offer } from "../ts-ligo-vocab/src/Offer";
 import { createCeramicDoc } from "./createCeramicDoc";
 
-const defaultValues = {    
-  description: '',
-  image: '',
-  vehicleIdentificationNumber: '',
-  vehicleModelDate: '',
-  model: '',
-  seller: '',
-  postalcode: '',
+const defaultValues = {
+  description: "",
+  image: "",
+  vehicleIdentificationNumber: "",
+  vehicleModelDate: "",
+  model: "",
+  seller: "",
+  postalcode: "",
   price: 0,
   value: 0,
   unitCode: "",
 };
-
 
 const ListForm = () => {
   const [formValues, setFormValues] = useState(defaultValues);
@@ -42,13 +41,13 @@ const ListForm = () => {
       description: formValues.description,
       image: formValues.image,
       itemOffered: {
-        model: formValues.model
+        model: formValues.model,
       },
-      // seller: formValues.seller,
+      seller: formValues.seller,
       priceSpecification: {
         // price: formValues.price,
         priceCurrency: "USD",
-      }
+      },
     };
     const listCreator = await createCeramicDoc(listoffer);
     console.log(listCreator);
@@ -57,7 +56,7 @@ const ListForm = () => {
   return (
     <form onSubmit={handleSubmit}>
       <Grid container alignItems="center" justify="center" direction="column">
-      <Grid item>
+        <Grid item>
           <TextField
             id="description-input"
             name="description"

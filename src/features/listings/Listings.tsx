@@ -5,6 +5,16 @@ import { ComposeClient } from "@composedb/client";
 import { definition } from "../../__generated__/definition.js";
 import { useEffect, useState } from "react";
 
+import Card from "@mui/material/Card";
+import CardActions from "@mui/material/CardActions";
+import CardContent from "@mui/material/CardContent";
+import CardMedia from "@mui/material/CardMedia";
+import Button from "@mui/material/Button";
+import Typography from "@mui/material/Typography";
+
+import Box from "@mui/material/Box";
+import Grid from "@mui/material/Grid";
+
 export function Listings() {
   const [responseData, setResponseData] = useState<any>([]);
   // Connect, Generate Seed and Authenticate
@@ -49,7 +59,7 @@ export function Listings() {
       // Fetch offers
       const fetchResult: any = await compose.executeQuery(`
           query {
-            offerIndex(first: 20) {
+            offerIndex(last: 20) {
               edges {
                 node {
                   id
@@ -72,18 +82,36 @@ export function Listings() {
     Resultprocessing(did).catch((error: any) => {
       console.log(error);
     });
-
-    // const fetchResult: any = Resultprocessing(did)
   }, []);
-
-  // Authenticate the DID with the provider
 
   return (
     <>
-      {responseData.map((item: any, index: number) => (
-        <div key={index}>{item.node.seller ? item.node.seller.id : null}</div>
-      ))}
-      <div>sdfsdf</div>
+      <Box sx={{ flexGrow: 1 }}>
+        <Grid container spacing={2}>
+          {responseData.map((item: any, index: number) => (
+            <div key={index}>
+              <Card sx={{ maxWidth: 345 }}>
+                <CardMedia
+                  component="img"
+                  height="140"
+                  image={item.node.image ? item.node.image : null}
+                />
+                <CardContent>
+                  <Typography gutterBottom variant="h5" component="div">
+                    {item.node.seller ? item.node.seller.id : null}
+                  </Typography>
+                  <Typography variant="body2" color="text.secondary">
+                    {item.node.description ? item.node.description : null}
+                  </Typography>
+                </CardContent>
+                <CardActions>
+                  <Button size="small">Learn More</Button>
+                </CardActions>
+              </Card>
+            </div>
+          ))}
+        </Grid>
+      </Box>
     </>
   );
 }
