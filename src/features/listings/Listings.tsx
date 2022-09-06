@@ -91,14 +91,27 @@ export function Listings() {
           {responseData.map((item: any, index: number) => (
             <div key={index}>
               <Card sx={{ maxWidth: 345 }}>
+                <Typography
+                  gutterBottom
+                  variant="h5"
+                  component="div"
+                  color={"blue"}
+                >
+                  {item.node.seller ? item.node.seller.id : null}
+                </Typography>
                 <CardMedia
                   component="img"
                   height="140"
                   image={item.node.image ? item.node.image : null}
                 />
                 <CardContent>
-                  <Typography gutterBottom variant="h5" component="div">
-                    {item.node.seller ? item.node.seller.id : null}
+                  <Typography
+                    gutterBottom
+                    variant="h5"
+                    component="div"
+                    color={"green"}
+                  >
+                    200$
                   </Typography>
                   <Typography variant="body2" color="text.secondary">
                     {item.node.description ? item.node.description : null}
