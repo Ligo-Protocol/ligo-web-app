@@ -35,7 +35,7 @@ import { definition } from '../../__generated__/definition.js'
 // };
 
 const createCeramicDoc = async(offer) => {
-
+    console.log("imported parameter offer", offer);
     // Connect, Generate Seed and Authenticate
     const compose = new ComposeClient({ ceramic: 'https://ceramic-clay.oort.codyhatfield.me', definition: definition as any })
     // Generate seed
@@ -83,7 +83,7 @@ const createCeramicDoc = async(offer) => {
     // Fetch offers
     const fetchResult = await compose.executeQuery(`
       query {
-        offerIndex(first: 5) {
+        offerIndex(first: 20) {
           edges {
             node {
               id

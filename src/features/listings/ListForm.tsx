@@ -37,15 +37,16 @@ const ListForm = () => {
   const handleSubmit = async (event) => {
     event.preventDefault();
     console.log(formValues);
+    // Creating offer from the form input
     const listoffer: Offer = {
       description: formValues.description,
       image: formValues.image,
       itemOffered: {
         model: formValues.model
       },
-      seller: formValues.seller,
+      // seller: formValues.seller,
       priceSpecification: {
-        price: formValues.price,
+        // price: formValues.price,
         priceCurrency: "USD",
       }
     };
