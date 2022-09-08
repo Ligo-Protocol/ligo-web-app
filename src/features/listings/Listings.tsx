@@ -87,17 +87,36 @@ export function Listings() {
   return (
     <>
       <Box sx={{ flexGrow: 1 }}>
-        <Grid container spacing={2}>
+        <Grid
+          container
+          spacing={4}
+          justifyContent="space-evenly"
+          alignItems="center"
+        >
           {responseData.map((item: any, index: number) => (
             <div key={index}>
               <Card sx={{ maxWidth: 345 }}>
                 <Typography
                   gutterBottom
-                  variant="h5"
+                  variant="h6"
                   component="div"
                   color={"blue"}
                 >
-                  {item.node.seller ? item.node.seller.id : null}
+                  {item.node.seller ? item.node.seller.id : "test:id"}
+                </Typography>
+                <Typography
+                  gutterBottom
+                  variant="h6"
+                  component="div"
+                  color={"blue"}
+                >
+                  {item.node.areaServed
+                    ? item.node.areaServed.address
+                    : "test:California"}
+                  ,
+                  {item.node.areaServed
+                    ? item.node.areaServed.postalcode
+                    : "test:54201352"}
                 </Typography>
                 <CardMedia
                   component="img"
@@ -114,14 +133,28 @@ export function Listings() {
                     $
                     {item.node.priceSpecification
                       ? item.node.priceSpecification.price
-                      : 200}
+                      : "test" + 200}
+                  </Typography>
+
+                  <Typography gutterBottom component="div" color={"blue"}>
+                    Advance Booking Requirement:
+                    {item.node.advanceBookingRequirement
+                      ? item.node.advanceBookingRequirement.value
+                      : "test:(" + 1}
+                    {item.node.advanceBookingRequirement
+                      ? item.node.advanceBookingRequirement.unitCode
+                      : " hour)"}
                   </Typography>
                   <Typography variant="body2" color="text.secondary">
-                    {item.node.description ? item.node.description : null}
+                    {item.node.description
+                      ? item.node.description
+                      : "test:description"}
                   </Typography>
                 </CardContent>
                 <CardActions>
-                  <Button size="small">Learn More</Button>
+                  <Button variant="outlined" color="secondary">
+                    View Offer
+                  </Button>
                 </CardActions>
               </Card>
             </div>

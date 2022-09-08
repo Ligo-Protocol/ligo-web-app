@@ -13,11 +13,10 @@ const defaultValues = {
   description: "",
   image: "",
   vehicleIdentificationNumber: "",
-  vehicleModelDate: "",
+  modelDate: "",
   model: "",
   brandname: "",
   seller: "",
-  address: "",
   postalcode: "",
   price: 0,
   value: 0,
@@ -35,26 +34,33 @@ const ListForm = () => {
     });
   };
 
+  const handleNumberInputChange = (e) => {
+    const { name, value } = e.target;
+    setFormValues({
+      ...formValues,
+      [name]: parseInt(value),
+    });
+  };
+
   const handleSubmit = async (event) => {
     event.preventDefault();
     console.log(formValues);
+    console.log(typeof formValues.price);
+    console.log(typeof formValues.value);
     // Creating offer from the form input
     const listoffer = {
       description: formValues.description,
       image: formValues.image,
       itemOffered: {
         vehicleIdentificationNumber: formValues.vehicleIdentificationNumber,
-        vehicleModelDate: formValues.vehicleModelDate,
+        modelDate: formValues.modelDate,
         brand: {
           name: formValues.brandname,
         },
         model: formValues.model,
       },
-      seller: {
-        id: formValues.seller,
-      },
+      seller: formValues.seller,
       areaServed: {
-        address: formValues.address,
         postalCode: formValues.postalcode,
       },
       priceSpecification: {
@@ -72,7 +78,12 @@ const ListForm = () => {
 
   return (
     <form onSubmit={handleSubmit}>
-      <Grid container alignItems="center" justify="center" direction="column">
+      <Grid
+        container
+        spacing={4}
+        justifyContent="space-evenly"
+        alignItems="center"
+      >
         <Grid item>
           <TextField
             id="description-input"
@@ -95,18 +106,6 @@ const ListForm = () => {
             onChange={handleInputChange}
           />
         </Grid>
-      </Grid>
-      <Grid container alignItems="center" justify="center" direction="column">
-        <Grid item>
-          <TextField
-            id="vehicleModelDate-input"
-            name="vehicleModelDate"
-            label="VehicleModelDate"
-            type="text"
-            value={formValues.vehicleModelDate}
-            onChange={handleInputChange}
-          />
-        </Grid>
         <Grid item>
           <TextField
             id="vehicleIdentificationNumber-input"
@@ -114,6 +113,16 @@ const ListForm = () => {
             label="VehicleIdentificationNumber"
             type="text"
             value={formValues.vehicleIdentificationNumber}
+            onChange={handleInputChange}
+          />
+        </Grid>
+        <Grid item>
+          <TextField
+            id="modelDate-input"
+            name="modelDate"
+            label="Model Date"
+            type="text"
+            value={formValues.modelDate}
             onChange={handleInputChange}
           />
         </Grid>
@@ -137,25 +146,13 @@ const ListForm = () => {
             onChange={handleInputChange}
           />
         </Grid>
-      </Grid>
-      <Grid container alignItems="center" justify="center" direction="column">
         <Grid item>
           <TextField
             id="seller-input"
             name="seller"
-            label="Seller"
+            label="Seller ID"
             type="text"
             value={formValues.seller}
-            onChange={handleInputChange}
-          />
-        </Grid>
-        <Grid item>
-          <TextField
-            id="address-input"
-            name="address"
-            label="Address"
-            type="text"
-            value={formValues.address}
             onChange={handleInputChange}
           />
         </Grid>
@@ -169,8 +166,6 @@ const ListForm = () => {
             onChange={handleInputChange}
           />
         </Grid>
-      </Grid>
-      <Grid container alignItems="center" justify="center" direction="column">
         <Grid item>
           <TextField
             id="price-input"
@@ -178,7 +173,7 @@ const ListForm = () => {
             label="Price"
             type="number"
             value={formValues.price}
-            onChange={handleInputChange}
+            onChange={handleNumberInputChange}
           />
         </Grid>
         <Grid item>
@@ -188,7 +183,7 @@ const ListForm = () => {
             label="Advanced booking requirement"
             type="number"
             value={formValues.value}
-            onChange={handleInputChange}
+            onChange={handleNumberInputChange}
           />
         </Grid>
         <Grid item>
@@ -207,10 +202,10 @@ const ListForm = () => {
             </Select>
           </FormControl>
         </Grid>
-        <Button variant="contained" color="primary" type="submit">
-          Submit
-        </Button>
       </Grid>
+      <Button variant="contained" color="primary" type="submit">
+        Submit
+      </Button>
     </form>
   );
 };
