@@ -111,7 +111,10 @@ export function Listings() {
                     component="div"
                     color={"green"}
                   >
-                    200$
+                    $
+                    {item.node.priceSpecification
+                      ? item.node.priceSpecification.price
+                      : 200}
                   </Typography>
                   <Typography variant="body2" color="text.secondary">
                     {item.node.description ? item.node.description : null}

@@ -6,7 +6,7 @@ import Select from "@material-ui/core/Select";
 import MenuItem from "@material-ui/core/MenuItem";
 import Button from "@material-ui/core/Button";
 
-import { Offer } from "../ts-ligo-vocab/src/Offer";
+// import { Offer } from "../ts-ligo-vocab/src/Offer";
 import { createCeramicDoc } from "./createCeramicDoc";
 
 const defaultValues = {
@@ -15,7 +15,9 @@ const defaultValues = {
   vehicleIdentificationNumber: "",
   vehicleModelDate: "",
   model: "",
+  brandname: "",
   seller: "",
+  address: "",
   postalcode: "",
   price: 0,
   value: 0,
@@ -37,16 +39,31 @@ const ListForm = () => {
     event.preventDefault();
     console.log(formValues);
     // Creating offer from the form input
-    const listoffer: Offer = {
+    const listoffer = {
       description: formValues.description,
       image: formValues.image,
       itemOffered: {
+        vehicleIdentificationNumber: formValues.vehicleIdentificationNumber,
+        vehicleModelDate: formValues.vehicleModelDate,
+        brand: {
+          name: formValues.brandname,
+        },
         model: formValues.model,
       },
-      seller: formValues.seller,
+      seller: {
+        id: formValues.seller,
+      },
+      areaServed: {
+        address: formValues.address,
+        postalCode: formValues.postalcode,
+      },
       priceSpecification: {
-        // price: formValues.price,
+        price: formValues.price,
         priceCurrency: "USD",
+      },
+      advanceBookingRequirement: {
+        value: formValues.value,
+        unitCode: formValues.unitCode,
       },
     };
     const listCreator = await createCeramicDoc(listoffer);
@@ -62,6 +79,8 @@ const ListForm = () => {
             name="description"
             label="Description"
             type="text"
+            multiline
+            rows={4}
             value={formValues.description}
             onChange={handleInputChange}
           />
@@ -73,6 +92,18 @@ const ListForm = () => {
             label="Image"
             type="text"
             value={formValues.image}
+            onChange={handleInputChange}
+          />
+        </Grid>
+      </Grid>
+      <Grid container alignItems="center" justify="center" direction="column">
+        <Grid item>
+          <TextField
+            id="vehicleModelDate-input"
+            name="vehicleModelDate"
+            label="VehicleModelDate"
+            type="text"
+            value={formValues.vehicleModelDate}
             onChange={handleInputChange}
           />
         </Grid>
@@ -88,11 +119,11 @@ const ListForm = () => {
         </Grid>
         <Grid item>
           <TextField
-            id="vehicleModelDate-input"
-            name="vehicleModelDate"
-            label="VehicleModelDate"
+            id="brandname-input"
+            name="brandname"
+            label="Brand Name"
             type="text"
-            value={formValues.vehicleModelDate}
+            value={formValues.brandname}
             onChange={handleInputChange}
           />
         </Grid>
@@ -106,6 +137,8 @@ const ListForm = () => {
             onChange={handleInputChange}
           />
         </Grid>
+      </Grid>
+      <Grid container alignItems="center" justify="center" direction="column">
         <Grid item>
           <TextField
             id="seller-input"
@@ -113,6 +146,16 @@ const ListForm = () => {
             label="Seller"
             type="text"
             value={formValues.seller}
+            onChange={handleInputChange}
+          />
+        </Grid>
+        <Grid item>
+          <TextField
+            id="address-input"
+            name="address"
+            label="Address"
+            type="text"
+            value={formValues.address}
             onChange={handleInputChange}
           />
         </Grid>
@@ -126,6 +169,8 @@ const ListForm = () => {
             onChange={handleInputChange}
           />
         </Grid>
+      </Grid>
+      <Grid container alignItems="center" justify="center" direction="column">
         <Grid item>
           <TextField
             id="price-input"
