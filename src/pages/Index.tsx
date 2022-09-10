@@ -5,7 +5,6 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { Contact } from "./Contact";
 import ListForm from "../features/listings/ListForm";
 import { Listings } from "../features/listings/Listings";
-import { RetrieveImage } from "../features/listings/retrieveImage";
 
 export function Index() {
   return (
@@ -17,7 +16,6 @@ export function Index() {
         <Route path="contact" element={<Contact />} />
         <Route path="form" element={<ListForm />} />
         <Route path="listings" element={<Listings />} />
-        <Route path="getimage" element={<RetrieveImage />} />
       </Routes>
     </BrowserRouter>
   );

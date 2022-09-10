@@ -79,11 +79,18 @@ const ListForm = () => {
   };
 
   // Upload image functions
-  const [selectedFile, setSelectedFile]: any = useState();
+  // const [selectedFile, setSelectedFile]: any = useState();
+  const [newFile, setnewFile]: any = useState();
   const [imageCid, setimageCid]: any = useState();
 
   function fileSelectHandler(event: any) {
-    setSelectedFile(event.target.files[0]);
+    // Changing filename for easy retrieval from web3storage by http
+
+    setnewFile(
+      new File([event.target.files[0]], "new_name.jpg", {
+        type: event.target.files[0].type,
+      })
+    );
   }
 
   async function fileUploadHandler(event: any) {
@@ -96,8 +103,8 @@ const ListForm = () => {
     }
 
     const storage = new Web3Storage({ token });
-    const cid = await storage.put([selectedFile], {
-      name: selectedFile.name,
+    const cid = await storage.put([newFile], {
+      name: "image",
     });
     setimageCid(cid);
     console.log("IMAGE CID ------------->>>", cid);

@@ -121,7 +121,15 @@ export function Listings() {
                 <CardMedia
                   component="img"
                   height="140"
-                  image={item.node.image ? item.node.image : null}
+                  // eslint-disable-next-line no-useless-concat
+                  image={
+                    item.node.image
+                      ? "https://" +
+                        item.node.image +
+                        ".ipfs.w3s.link/" +
+                        "new_name.jpg"
+                      : "https://bafybeih4lgsylefq3nw2ucdhvflsylkm5acr2dje5zexazbig4o6xmgfuq.ipfs.w3s.link/new_name.jpg"
+                  }
                 />
                 <CardContent>
                   <Typography
