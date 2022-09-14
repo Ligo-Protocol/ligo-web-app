@@ -3,35 +3,42 @@ import { Web3Auth } from "@web3auth/web3auth";
 import { CHAIN_NAMESPACES, SafeEventEmitterProvider } from "@web3auth/base";
 import RPC from "../../lib/web3RPC";
 import "../../assets/css/App.css";
-import UploadImage from "../listings/uploadImage";
 import { Login } from "./Login";
 // import { createCeramicDoc } from "../listings/createCeramicDoc";
 
+import { Home } from "../../pages/Home";
+import { About } from "../../pages/About";
+import { Listings } from "../listings/Listings";
+import ListForm from "../listings/ListForm";
+import { Contact } from "../../pages/Contact";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 
-const clientId:any = process.env.REACT_APP_CLIENT_ID; // get from https://dashboard.web3auth.io
+const clientId: any = process.env.REACT_APP_CLIENT_ID; // get from https://dashboard.web3auth.io
 
 function Auth() {
   const [web3auth, setWeb3auth] = useState<Web3Auth | null>(null);
-  const [provider, setProvider] = useState<SafeEventEmitterProvider | null>(null);
+  const [provider, setProvider] = useState<SafeEventEmitterProvider | null>(
+    null
+  );
   useEffect(() => {
     const init = async () => {
       try {
+        const web3auth = new Web3Auth({
+          clientId,
+          chainConfig: {
+            chainNamespace: CHAIN_NAMESPACES.EIP155,
+            chainId: "0x4",
+            rpcTarget:
+              "https://rinkeby.infura.io/v3/9834efc01c904696a10cb3c37c72727c", // This is the public RPC we have added, please pass on your own endpoint while creating an app
+          },
+        });
 
-      const web3auth = new Web3Auth({
-        clientId,
-        chainConfig: {
-          chainNamespace: CHAIN_NAMESPACES.EIP155,
-          chainId: "0x4",
-          rpcTarget: "https://rinkeby.infura.io/v3/9834efc01c904696a10cb3c37c72727c", // This is the public RPC we have added, please pass on your own endpoint while creating an app
-        },
-      });
+        setWeb3auth(web3auth);
 
-      setWeb3auth(web3auth);
-
-      await web3auth.initModal();
+        await web3auth.initModal();
         if (web3auth.provider) {
           setProvider(web3auth.provider);
-        };
+        }
       } catch (error) {
         console.error(error);
       }
@@ -81,27 +88,44 @@ function Auth() {
 
   if (provider) {
     return (
-    <>
-    <div>
-    <UploadImage/>
-    <button onClick={getUserInfo} className="card">
-      User Info
-    </button>
-    <button onClick={getAccounts} className="card">
-      Accounts
-    </button>
-    </div>
-    <div>
-    <button onClick={logout} className="card">
-      Log Out
-    </button>
-    </div>
-    </>
+      <>
+        <div>
+          <button onClick={getUserInfo} className="card">
+            User Info
+          </button>
+          <button onClick={getAccounts} className="card">
+            Accounts
+          </button>
+        </div>
+        <div>
+          <button onClick={logout} className="card">
+            Log Out
+          </button>
+        </div>
+        <BrowserRouter>
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="about" element={<About />} />
+            <Route path="contact" element={<Contact />} />
+            <Route path="form" element={<ListForm />} />
+            <Route path="listings" element={<Listings />} />
+          </Routes>
+        </BrowserRouter>
+      </>
     );
   }
 
   return (
-    <Login login={login}/>
+    <>
+      <Login login={login} />
+      <BrowserRouter>
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="about" element={<About />} />
+          <Route path="contact" element={<Contact />} />
+        </Routes>
+      </BrowserRouter>
+    </>
   );
 }
 
