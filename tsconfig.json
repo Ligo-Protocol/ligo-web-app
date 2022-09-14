@@ -17,11 +17,16 @@
     "moduleResolution": "node",
     "resolveJsonModule": true,
     "isolatedModules": true,
+    "outDir": "./dist",
     "noEmit": true,
     "jsx": "react-jsx",
-    "noImplicitAny": false
+    "noImplicitAny": false,
+    "declaration": true /* Generate .d.ts files from TypeScript and JavaScript files in your project. */,
+    
   },
+  "exclude": ["node_modules", "examples"],
   "include": [
-    "src"
+    "src",
+    "**/*.ts"
   ]
 }
