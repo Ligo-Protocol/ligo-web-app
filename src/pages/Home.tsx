@@ -1,4 +1,3 @@
-import ResponsiveAppBar from "./Navbar/Navbar";
 import CustomizedTimeline from "./Information";
 import { Button } from "@mui/material";
 import { BoxContent } from "./Boxcontent";
@@ -6,7 +5,6 @@ import { BoxContent } from "./Boxcontent";
 export function Home() {
   return (
     <>
-      <ResponsiveAppBar />
       <BoxContent />
       <CustomizedTimeline />
       <div

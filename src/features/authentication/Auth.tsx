@@ -1,10 +1,10 @@
 import { useEffect, useState } from "react";
 import { Web3Auth } from "@web3auth/web3auth";
 import { CHAIN_NAMESPACES, SafeEventEmitterProvider } from "@web3auth/base";
-import RPC from "../../lib/web3RPC";
+// import RPC from "../../lib/web3RPC";
 import "../../assets/css/App.css";
-import { Login } from "./Login";
 // import { createCeramicDoc } from "../listings/createCeramicDoc";
+import ResponsiveAppBar from "../../pages/Navbar/Navbar";
 
 import { Home } from "../../pages/Home";
 import { About } from "../../pages/About";
@@ -20,6 +20,7 @@ function Auth() {
   const [provider, setProvider] = useState<SafeEventEmitterProvider | null>(
     null
   );
+  const [ isLogged, setIsLogged ] = useState<boolean>(false);
   useEffect(() => {
     const init = async () => {
       try {
@@ -54,6 +55,7 @@ function Auth() {
     }
     const web3authProvider = await web3auth.connect();
     setProvider(web3authProvider);
+    setIsLogged(true);
     console.log("TEST: logged in!");
   };
 
@@ -63,44 +65,35 @@ function Auth() {
       return;
     }
     await web3auth.logout();
+    setIsLogged(false);
     setProvider(null);
   };
 
-  const getUserInfo = async () => {
-    if (!web3auth) {
-      console.log("web3auth not initialized yet");
-      return;
-    }
-    const user = await web3auth.getUserInfo();
-    console.log(user);
-  };
+  // const getUserInfo = async () => {
+  //   if (!web3auth) {
+  //     console.log("web3auth not initialized yet");
+  //     return;
+  //   }
+  //   const user = await web3auth.getUserInfo();
+  //   console.log(user);
+  // };
 
-  const getAccounts = async () => {
-    if (!provider) {
-      console.log("provider not initialized yet");
-      return;
-    }
-    const rpc = new RPC(provider);
-    const address = await rpc.getAccounts();
-    console.log(address);
-    return address;
-  };
+  // const getAccounts = async () => {
+  //   if (!provider) {
+  //     console.log("provider not initialized yet");
+  //     return;
+  //   }
+  //   const rpc = new RPC(provider);
+  //   const address = await rpc.getAccounts();
+  //   console.log(address);
+  //   return address;
+  // };
 
   if (provider) {
     return (
       <>
         <div>
-          <button onClick={getUserInfo} className="card">
-            User Info
-          </button>
-          <button onClick={getAccounts} className="card">
-            Accounts
-          </button>
-        </div>
-        <div>
-          <button onClick={logout} className="card">
-            Log Out
-          </button>
+        <ResponsiveAppBar logged={logout} isLogged={isLogged}/>
         </div>
         <BrowserRouter>
           <Routes>
@@ -117,7 +110,7 @@ function Auth() {
 
   return (
     <>
-      <Login login={login} />
+      <ResponsiveAppBar logged={login} isLogged={isLogged}/>
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<Home />} />
