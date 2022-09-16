@@ -6,7 +6,7 @@ import Container from '@mui/material/Container';
 import Button from '@mui/material/Button';
 // import AdbIcon from '@mui/icons-material/Adb';
 
-const ResponsiveAppBar = () => {
+const ResponsiveAppBar = ({logged,isLogged}) => {
 
 
   return (
@@ -34,8 +34,8 @@ const ResponsiveAppBar = () => {
                   <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' },justifyContent:'right', alignItems:'right' }}>
                               <Button style={{ background: '#2E3B55' }} variant="contained">About</Button>
                               <Button style={{ background: '#2E3B55' }} variant="contained">Contact</Button>
-                              <Button style={{ background: '#2E3B55' }} variant="contained" rel="noopener noreferrer" href="https://ligo-book.codyhatfield.me/" target="_blank">Docs</Button>
-                              <Button style={{ background: '#2E3B55' }} variant="contained">Login</Button>
+                              <Button style={{ background: '#2E3B55' }} variant="contained" rel="noopener noreferrer" href="https://ligo.dev/docs" target="_blank">Docs</Button>
+                              <Button variant="contained" color={isLogged?"error":"success"} onClick={logged}>{isLogged?"Logout":"Login"}</Button>
                   </Box>
         </Toolbar>
       </Container>
