@@ -12,6 +12,7 @@ import { Listings } from "../listings/Listings";
 import ListForm from "../listings/ListForm";
 import { Contact } from "../../pages/Contact";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { PageNotFound } from "../../pages/PageNotFound";
 
 const clientId: any = process.env.REACT_APP_CLIENT_ID; // get from https://dashboard.web3auth.io
 
@@ -102,6 +103,7 @@ function Auth() {
             <Route path="contact" element={<Contact />} />
             <Route path="form" element={<ListForm />} />
             <Route path="listings" element={<Listings />} />
+            <Route path="*" element={<PageNotFound />} />
           </Routes>
         </BrowserRouter>
       </>
@@ -116,6 +118,7 @@ function Auth() {
           <Route path="/" element={<Home />} />
           <Route path="about" element={<About />} />
           <Route path="contact" element={<Contact />} />
+          <Route path="*" element={<PageNotFound />} />
         </Routes>
       </BrowserRouter>
     </>

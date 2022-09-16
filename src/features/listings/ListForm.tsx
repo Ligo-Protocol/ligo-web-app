@@ -6,12 +6,19 @@ import Select from "@material-ui/core/Select";
 import MenuItem from "@material-ui/core/MenuItem";
 import Button from "@material-ui/core/Button";
 
+import HelpIcon from '@mui/icons-material/Help';
+import IconButton from '@mui/material/IconButton';
+import Tooltip from '@mui/material/Tooltip';
+
 // import { Offer } from "../ts-ligo-vocab/src/Offer";
 import { createCeramicDoc } from "./createCeramicDoc";
 
 // imports for uploading images
 import process from "process";
 import { Web3Storage } from "web3.storage";
+import { brandInfo, descriptionInfo, imageInfo, modelDateInfo, modelInfo, postalCodeInfo, priceInfo, sellerInfo, unitCodeInfo, valueInfo, vinInfo } from "./FormHelpInfo";
+
+// import HelpIcon Information
 
 const defaultValues = {
   description: "",
@@ -83,8 +90,8 @@ const ListForm = () => {
   const [newFile, setnewFile]: any = useState();
   const [imageCid, setimageCid]: any = useState();
 
-  function fileSelectHandler(event: any) {
-    // Changing filename for easy retrieval from web3storage by http
+  async function fileSelectHandler(event: any) {
+    // Changing filename for easy retrieval from web3storage by ipfs
 
     setnewFile(
       new File([event.target.files[0]], "new_name.jpg", {
@@ -114,6 +121,11 @@ const ListForm = () => {
       <div className="uploadImagge">
         <input type="file" onChange={fileSelectHandler} />
         <Button onClick={fileUploadHandler}>Upload</Button>
+        <Tooltip title={imageInfo}>
+                <IconButton>
+                  <HelpIcon />
+                </IconButton>
+              </Tooltip>
       </div>
       <div>
         <form onSubmit={handleSubmit}>
@@ -131,19 +143,15 @@ const ListForm = () => {
                 type="text"
                 multiline
                 rows={4}
+                InputProps={{ inputProps: { min: 0, max:100}}}
                 value={formValues.description}
                 onChange={handleInputChange}
               />
-            </Grid>
-            <Grid item>
-              <TextField
-                id="image-input"
-                name="image"
-                label="Image"
-                type="text"
-                value={formValues.image}
-                onChange={handleInputChange}
-              />
+              <Tooltip title={descriptionInfo}>
+                <IconButton>
+                  <HelpIcon />
+                </IconButton>
+              </Tooltip>
             </Grid>
 
             <Grid item>
@@ -155,6 +163,11 @@ const ListForm = () => {
                 value={formValues.vehicleIdentificationNumber}
                 onChange={handleInputChange}
               />
+              <Tooltip title={vinInfo}>
+                <IconButton>
+                  <HelpIcon />
+                </IconButton>
+              </Tooltip>
             </Grid>
             <Grid item>
               <TextField
@@ -165,6 +178,11 @@ const ListForm = () => {
                 value={formValues.modelDate}
                 onChange={handleInputChange}
               />
+              <Tooltip title={modelDateInfo}>
+                <IconButton>
+                  <HelpIcon />
+                </IconButton>
+              </Tooltip>
             </Grid>
             <Grid item>
               <TextField
@@ -175,6 +193,11 @@ const ListForm = () => {
                 value={formValues.brandname}
                 onChange={handleInputChange}
               />
+              <Tooltip title={brandInfo}>
+                <IconButton>
+                  <HelpIcon />
+                </IconButton>
+              </Tooltip>
             </Grid>
             <Grid item>
               <TextField
@@ -185,6 +208,11 @@ const ListForm = () => {
                 value={formValues.model}
                 onChange={handleInputChange}
               />
+              <Tooltip title={modelInfo}>
+                <IconButton>
+                  <HelpIcon />
+                </IconButton>
+              </Tooltip>
             </Grid>
             <Grid item>
               <TextField
@@ -195,6 +223,11 @@ const ListForm = () => {
                 value={formValues.seller}
                 onChange={handleInputChange}
               />
+              <Tooltip title={sellerInfo}>
+                <IconButton>
+                  <HelpIcon />
+                </IconButton>
+              </Tooltip>
             </Grid>
             <Grid item>
               <TextField
@@ -205,6 +238,11 @@ const ListForm = () => {
                 value={formValues.postalcode}
                 onChange={handleInputChange}
               />
+              <Tooltip title={postalCodeInfo}>
+                <IconButton>
+                  <HelpIcon />
+                </IconButton>
+              </Tooltip>
             </Grid>
             <Grid item>
               <TextField
@@ -212,9 +250,15 @@ const ListForm = () => {
                 name="price"
                 label="Price"
                 type="number"
+                InputProps={{ inputProps: { min: 0} }}
                 value={formValues.price}
                 onChange={handleNumberInputChange}
               />
+              <Tooltip title={priceInfo}>
+                <IconButton>
+                  <HelpIcon />
+                </IconButton>
+              </Tooltip>
             </Grid>
             <Grid item>
               <TextField
@@ -222,11 +266,16 @@ const ListForm = () => {
                 name="value"
                 label="Advanced booking requirement"
                 type="number"
+                InputProps={{ inputProps: { min: 0} }}
                 value={formValues.value}
                 onChange={handleNumberInputChange}
               />
-            </Grid>
-            <Grid item>
+              <Tooltip title={valueInfo}>
+                <IconButton>
+                  <HelpIcon />
+                </IconButton>
+              </Tooltip>
+
               <FormControl>
                 <Select
                   name="unitCode"
@@ -239,8 +288,16 @@ const ListForm = () => {
                   <MenuItem key="MIN" value="MIN">
                     Minutes
                   </MenuItem>
+                  <MenuItem key="DAY" value="DAY">
+                    Days
+                  </MenuItem>
                 </Select>
               </FormControl>
+              <Tooltip title={unitCodeInfo}>
+                <IconButton>
+                  <HelpIcon />
+                </IconButton>
+              </Tooltip>
             </Grid>
           </Grid>
           <Button variant="contained" color="primary" type="submit">
