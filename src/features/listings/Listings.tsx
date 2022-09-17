@@ -68,6 +68,24 @@ export function Listings() {
                   }
                   description
                   image
+                  itemOffered {
+                    vehicleIdentificationNumber
+                    modelDate
+                    brand {
+                      name
+                    }
+                  }
+                  areaServed {
+                    postalCode
+                  }
+                  priceSpecification {
+                    price
+                    priceCurrency
+                  }
+                  advanceBookingRequirement {
+                    value
+                    unitCode
+                  }
                 }
               }
             }
@@ -115,7 +133,7 @@ export function Listings() {
                     : "test:California"}
                   ,
                   {item.node.areaServed
-                    ? item.node.areaServed.postalcode
+                    ? item.node.areaServed.postalCode
                     : "test:54201352"}
                 </Typography>
                 <CardMedia

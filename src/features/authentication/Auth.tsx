@@ -111,8 +111,10 @@ function Auth() {
   }
 
   return (
-    <>
+    <><div>
       <ResponsiveAppBar logged={login} isLogged={isLogged}/>
+      </div>
+      <div>
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<Home />} />
@@ -121,6 +123,7 @@ function Auth() {
           <Route path="*" element={<PageNotFound />} />
         </Routes>
       </BrowserRouter>
+      </div>
     </>
   );
 }
