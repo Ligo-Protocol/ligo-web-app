@@ -8,11 +8,20 @@ import ResponsiveAppBar from "../../pages/Navbar/Navbar";
 
 import { Home } from "../../pages/Home";
 import { About } from "../../pages/About";
-import { Listings } from "../listings/Listings";
+// import { Listings } from "../listings/Listings";
 import ListForm from "../listings/ListForm";
 import { Contact } from "../../pages/Contact";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { PageNotFound } from "../../pages/PageNotFound";
+import { Dashboard } from "../dashboard/Dashboard";
+import { Openmarket } from "../marketplace/open_market/Open_market";
+import { Coopmarket } from "../marketplace/coop_market/Coop_market";
+import { Privatemarket } from "../marketplace/private_market/Private_market";
+import { ActiveListings } from "../dashboard/ActiveListings";
+import { Messaging } from "../messages/Messaging";
+import { Bookmarks } from "../dashboard/Bookmarks";
+import { UserSettings } from "../dashboard/Settings";
+import { Statistics } from "../dashboard/Statistics";
 
 const clientId: any = process.env.REACT_APP_CLIENT_ID; // get from https://dashboard.web3auth.io
 
@@ -98,11 +107,19 @@ function Auth() {
         </div>
         <BrowserRouter>
           <Routes>
-            <Route path="/" element={<Home />} />
             <Route path="about" element={<About />} />
             <Route path="contact" element={<Contact />} />
             <Route path="form" element={<ListForm />} />
-            <Route path="listings" element={<Listings />} />
+            <Route path="/" element={<Dashboard />} >
+              <Route path="openmarket" element={<Openmarket />} />
+              <Route path="coopmarket" element={<Coopmarket />} />
+              <Route path="privatemarket" element={<Privatemarket />} />
+              <Route path="activelistings" element={<ActiveListings />} />
+              <Route path="bookmarks" element={<Bookmarks />} />
+              <Route path="statistics" element={<Statistics />} />
+              <Route path="messaging" element={<Messaging />} />
+              <Route path="settings" element={<UserSettings />} />
+            </Route>
             <Route path="*" element={<PageNotFound />} />
           </Routes>
         </BrowserRouter>
