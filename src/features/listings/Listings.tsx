@@ -100,6 +100,7 @@ export function Listings() {
     Resultprocessing(did).catch((error: any) => {
       console.log(error);
     });
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (
