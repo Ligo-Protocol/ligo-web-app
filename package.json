@@ -32,6 +32,7 @@
     "formik": "^2.2.9",
     "key-did-provider-ed25519": "^2.0.1",
     "key-did-resolver": "^2.0.6",
+    "material-ui-search-bar": "^1.0.0",
     "react": "^18.2.0",
     "react-bootstrap": "^2.5.0",
     "react-dom": "^18.2.0",
