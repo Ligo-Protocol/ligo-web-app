@@ -22,6 +22,7 @@ import { Messaging } from "../messages/Messaging";
 import { Bookmarks } from "../dashboard/Bookmarks";
 import { UserSettings } from "../dashboard/Settings";
 import { Statistics } from "../dashboard/Statistics";
+import { FileDisputes } from "../disputes/FileDisputes";
 
 const clientId: any = process.env.REACT_APP_CLIENT_ID; // get from https://dashboard.web3auth.io
 
@@ -167,6 +168,7 @@ function Auth() {
               <Route path="bookmarks" element={<Bookmarks />} />
               <Route path="statistics" element={<Statistics />} />
               <Route path="messaging" element={<Messaging />} />
+              <Route path="dispute" element={<FileDisputes />} />
               <Route path="settings" element={<UserSettings getUserInfo={getUserInfo} getChainId={getChainId} getAccounts={getAccounts} getBalance={getBalance} getPrivateKey={getPrivateKey} />} />
              </Route>
             <Route path="*" element={<PageNotFound />} />

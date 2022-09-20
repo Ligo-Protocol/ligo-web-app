@@ -9,6 +9,7 @@ export function Dashboard(){
                 <li><Link to="privatemarket">Private marketplace</Link></li>
                 <li><Link to="activelistings">Active listings</Link></li>
                 <li><Link to="bookmarks">Bookmarks</Link></li>
+                <li><Link to="dispute">Disputes</Link></li>
                 <li><Link to="statistics">Statistics</Link></li>
                 <li><Link to="messaging">Messaging</Link></li>
                 <li><Link to="settings">User settings</Link></li>
