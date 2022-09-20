@@ -1,4 +1,5 @@
 import { useState } from "react"
+import { TextField } from "@material-ui/core";
 
 export function UserSettings({getUserInfo,getChainId,getAccounts,getBalance, getPrivateKey}){
 
@@ -7,6 +8,10 @@ export function UserSettings({getUserInfo,getChainId,getAccounts,getBalance, get
     const [accountdata, setAccInfo] = useState<any>();
     const [balancedata, setBalanceInfo] = useState<any>();
     const [privatedata, setPrivateInfo] = useState<any>();
+
+    const [isTextHidden, setTextHidden] = useState(true);
+
+    const onClick = () => setTextHidden(!isTextHidden);
    
     async function getInfo(){
         setUserInfo(await getUserInfo());
@@ -30,13 +35,19 @@ export function UserSettings({getUserInfo,getChainId,getAccounts,getBalance, get
             {chaindata?chaindata:"No chainID"}
             {accountdata?accountdata:"No Account Info"}
             {balancedata?balancedata:"No data on balance"}
-            {/* <ul>
-                <li>{user?user:null}</li>
-                <li>{chainId?chainId:null}</li>
-                <li>{balance?balance:null}</li>
-                <li>{address?address:null}</li>
-                <li>{privateKey?privateKey:null}</li>
-            </ul> */}
+            <br/>
+            <div>
+      <button onClick={onClick}>{isTextHidden ? 'Show' : 'Hide'}</button>
+      {!isTextHidden ?  <TextField
+      fullWidth 
+          id="outlined-read-only-input"
+          label="Private Key"
+          defaultValue={privatedata}
+          InputProps={{
+            readOnly: true,
+          }}
+        /> : null}
+    </div>
         </>
     )
 }
