@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import Grid from "@material-ui/core/Grid";
 import TextField from "@material-ui/core/TextField";
 import FormControl from "@material-ui/core/FormControl";
 import Select from "@material-ui/core/Select";
@@ -17,6 +16,8 @@ import { createCeramicDoc } from "./createCeramicDoc";
 import process from "process";
 import { Web3Storage } from "web3.storage";
 import { brandInfo, descriptionInfo, imageInfo, modelDateInfo, modelInfo, postalCodeInfo, priceInfo, sellerInfo, unitCodeInfo, valueInfo, vinInfo } from "./FormHelpInfo";
+
+import styles from "../../assets/css/features/listings/ListForm.module.css"
 
 // import HelpIcon Information
 
@@ -117,8 +118,8 @@ const ListForm = () => {
     console.log("IMAGE CID ------------->>>", cid);
   }
   return (
-    <div>
-      <div className="uploadImagge">
+    <div className={styles.center}>
+      <div className={styles.primary}>
         <input type="file" onChange={fileSelectHandler} />
         <Button onClick={fileUploadHandler}>Upload</Button>
         <Tooltip title={imageInfo}>
@@ -129,20 +130,16 @@ const ListForm = () => {
       </div>
       <div>
         <form onSubmit={handleSubmit}>
-          <Grid
-            container
-            spacing={4}
-            justifyContent="space-evenly"
-            alignItems="center"
+          <div
           >
-            <Grid item>
+            <div className={styles.description}>
               <TextField
                 id="description-input"
                 name="description"
                 label="Description"
                 type="text"
                 multiline
-                rows={4}
+                minRows={6}
                 InputProps={{ inputProps: { min: 0, max:100}}}
                 value={formValues.description}
                 onChange={handleInputChange}
@@ -152,9 +149,9 @@ const ListForm = () => {
                   <HelpIcon />
                 </IconButton>
               </Tooltip>
-            </Grid>
+            </div>
 
-            <Grid item>
+            <div className={styles.inputbox}>
               <TextField
                 id="vehicleIdentificationNumber-input"
                 name="vehicleIdentificationNumber"
@@ -168,8 +165,8 @@ const ListForm = () => {
                   <HelpIcon />
                 </IconButton>
               </Tooltip>
-            </Grid>
-            <Grid item>
+            </div>
+            <div className={styles.inputbox}>
               <TextField
                 id="modelDate-input"
                 name="modelDate"
@@ -183,8 +180,8 @@ const ListForm = () => {
                   <HelpIcon />
                 </IconButton>
               </Tooltip>
-            </Grid>
-            <Grid item>
+            </div>
+            <div className={styles.inputbox}>
               <TextField
                 id="brandname-input"
                 name="brandname"
@@ -198,8 +195,8 @@ const ListForm = () => {
                   <HelpIcon />
                 </IconButton>
               </Tooltip>
-            </Grid>
-            <Grid item>
+            </div>
+            <div className={styles.inputbox}>
               <TextField
                 id="model-input"
                 name="model"
@@ -213,8 +210,8 @@ const ListForm = () => {
                   <HelpIcon />
                 </IconButton>
               </Tooltip>
-            </Grid>
-            <Grid item>
+            </div>
+            <div className={styles.inputbox}>
               <TextField
                 id="seller-input"
                 name="seller"
@@ -228,8 +225,8 @@ const ListForm = () => {
                   <HelpIcon />
                 </IconButton>
               </Tooltip>
-            </Grid>
-            <Grid item>
+            </div>
+            <div className={styles.inputbox}>
               <TextField
                 id="postalcode-input"
                 name="postalcode"
@@ -243,8 +240,8 @@ const ListForm = () => {
                   <HelpIcon />
                 </IconButton>
               </Tooltip>
-            </Grid>
-            <Grid item>
+            </div>
+            <div className={styles.inputbox}>
               <TextField
                 id="price-input"
                 name="price"
@@ -259,8 +256,8 @@ const ListForm = () => {
                   <HelpIcon />
                 </IconButton>
               </Tooltip>
-            </Grid>
-            <Grid item>
+            </div>
+            <div className={styles.inputbox}>
               <TextField
                 id="value-input"
                 name="value"
@@ -298,11 +295,13 @@ const ListForm = () => {
                   <HelpIcon />
                 </IconButton>
               </Tooltip>
-            </Grid>
-          </Grid>
+            </div>
+          </div>
+          <div className={styles.submit}>
           <Button variant="contained" color="primary" type="submit">
             Submit
           </Button>
+          </div>
         </form>
       </div>
     </div>

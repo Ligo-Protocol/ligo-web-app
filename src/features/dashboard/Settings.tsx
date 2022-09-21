@@ -1,5 +1,8 @@
 import { useState } from "react"
 import { TextField } from "@material-ui/core";
+import { Button } from "@mui/material";
+import IconButton from '@mui/material/IconButton';
+import ContentCopyIcon from '@mui/icons-material/ContentCopy';
 
 export function UserSettings({getUserInfo,getChainId,getAccounts,getBalance, getPrivateKey}){
 
@@ -30,24 +33,40 @@ export function UserSettings({getUserInfo,getChainId,getAccounts,getBalance, get
     return(
         <>
             <h1>Here are your user settings</h1>
-            <button onClick={getInfo}>here</button>
-            {userdata?userdata.email:"No userdata"}
-            {chaindata?chaindata:"No chainID"}
-            {accountdata?accountdata:"No Account Info"}
-            {balancedata?balancedata:"No data on balance"}
+            <Button variant="outlined" onClick={getInfo}>Click to show Wallet Address and Private Key</Button>
+            {accountdata? <div>
+                
+                <TextField 
+                    id="outlined-read-only-input"
+                    label="Wallet address"
+                    defaultValue={accountdata}
+                    InputProps={{
+                        readOnly: true,
+                    }}
+                />
+                <IconButton onClick={() => {navigator.clipboard.writeText(accountdata)}}
+                    ><ContentCopyIcon/></IconButton>
+            </div>  :null }
+                      
             <br/>
+            {privatedata?
             <div>
-      <button onClick={onClick}>{isTextHidden ? 'Show' : 'Hide'}</button>
-      {!isTextHidden ?  <TextField
-      fullWidth 
-          id="outlined-read-only-input"
-          label="Private Key"
-          defaultValue={privatedata}
-          InputProps={{
-            readOnly: true,
-          }}
-        /> : null}
-    </div>
+                <Button onClick={onClick}>{isTextHidden ? 'Show Private Key' : 'Hide'}</Button>
+                {!isTextHidden ?  
+                <>
+                <TextField 
+                    id="outlined-read-only-input"
+                    label="Private Key"
+                    defaultValue={privatedata}
+                    InputProps={{
+                        readOnly: true,
+                    }}
+                />
+                <IconButton onClick={() => {navigator.clipboard.writeText(privatedata)}}
+                    ><ContentCopyIcon/></IconButton>
+                </> : null}
+            </div> :null}
+    
         </>
     )
 }

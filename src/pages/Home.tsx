@@ -1,12 +1,10 @@
-import CustomizedTimeline from "./Information";
-import { Button } from "@mui/material";
 import { BoxContent } from "./Boxcontent";
 
 export function Home() {
   return (
     <>
       <BoxContent />
-      <CustomizedTimeline />
+      {/* <CustomizedTimeline />
       <div
         style={{
           display: "flex",
@@ -18,7 +16,7 @@ export function Home() {
         <Button variant="contained" color="success">
           Get Started
         </Button>
-      </div>
+      </div> */}
     </>
   );
 }

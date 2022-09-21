@@ -11,9 +11,10 @@ import { About } from "../../pages/About";
 // import { Listings } from "../listings/Listings";
 import ListForm from "../listings/ListForm";
 import { Contact } from "../../pages/Contact";
+
 import { BrowserRouter, Routes, Route } from "react-router-dom";
+
 import { PageNotFound } from "../../pages/PageNotFound";
-import { Dashboard } from "../dashboard/Dashboard";
 import { Openmarket } from "../marketplace/open_market/Open_market";
 import  Coopmarket  from "../marketplace/coop_market/Coop_market";
 import  Privatemarket  from "../marketplace/private_market/Private_market";
@@ -23,6 +24,7 @@ import { Bookmarks } from "../dashboard/Bookmarks";
 import { UserSettings } from "../dashboard/Settings";
 import { Statistics } from "../dashboard/Statistics";
 import { FileDisputes } from "../disputes/FileDisputes";
+import {Dashboard} from "../dashboard/Dashboard";
 
 const clientId: any = process.env.REACT_APP_CLIENT_ID; // get from https://dashboard.web3auth.io
 
@@ -33,12 +35,6 @@ function Auth() {
   );
   const [ isLogged, setIsLogged ] = useState<boolean>(false);
 
-  // const [chainId, setChainId] = useState<any>(null);
-  // const [balance, setBalance] = useState<any>(null);
-  // const [address, setAccounts] = useState<any>(null);
-  // const [receipt, setTransaction] = useState<any>(null);
-  // const [signedMessage, setMessage] = useState<any>(null);
-  // const [privateKey, setPrivateKey] = useState<any>(null);
   useEffect(() => {
     const init = async () => {
       try {
