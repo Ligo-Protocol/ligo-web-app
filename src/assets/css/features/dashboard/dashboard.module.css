@@ -1,0 +1,19 @@
+.link {
+    text-decoration: none;
+    color: inherit;
+}
+
+.list {
+    margin-top: 20px;
+}
+
+.outlet {
+    width: 80%;
+    float: right;
+}
+
+.sidebar {
+    width: 290px;
+    float: left;
+
+}

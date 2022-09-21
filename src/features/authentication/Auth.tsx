@@ -13,7 +13,6 @@ import ListForm from "../listings/ListForm";
 import { Contact } from "../../pages/Contact";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { PageNotFound } from "../../pages/PageNotFound";
-import { Dashboard } from "../dashboard/Dashboard";
 import { Openmarket } from "../marketplace/open_market/Open_market";
 import  Coopmarket  from "../marketplace/coop_market/Coop_market";
 import  Privatemarket  from "../marketplace/private_market/Private_market";
@@ -23,6 +22,7 @@ import { Bookmarks } from "../dashboard/Bookmarks";
 import { UserSettings } from "../dashboard/Settings";
 import { Statistics } from "../dashboard/Statistics";
 import { FileDisputes } from "../disputes/FileDisputes";
+import {Dashboard} from "../dashboard/Dashboard";
 
 const clientId: any = process.env.REACT_APP_CLIENT_ID; // get from https://dashboard.web3auth.io
 
@@ -160,7 +160,7 @@ function Auth() {
             <Route path="about" element={<About />} />
             <Route path="contact" element={<Contact />} />
             <Route path="form" element={<ListForm />} />
-            <Route path="/" element={<Dashboard />} >
+            <Route path="/dashboard" element={<Dashboard />} >
               <Route path="openmarket" element={<Openmarket />} />
               <Route path="coopmarket" element={<Coopmarket />} />
               <Route path="privatemarket" element={<Privatemarket />} />
