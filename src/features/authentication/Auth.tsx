@@ -11,7 +11,9 @@ import { About } from "../../pages/About";
 // import { Listings } from "../listings/Listings";
 import ListForm from "../listings/ListForm";
 import { Contact } from "../../pages/Contact";
+
 import { BrowserRouter, Routes, Route } from "react-router-dom";
+
 import { PageNotFound } from "../../pages/PageNotFound";
 import { Openmarket } from "../marketplace/open_market/Open_market";
 import  Coopmarket  from "../marketplace/coop_market/Coop_market";
@@ -33,12 +35,6 @@ function Auth() {
   );
   const [ isLogged, setIsLogged ] = useState<boolean>(false);
 
-  // const [chainId, setChainId] = useState<any>(null);
-  // const [balance, setBalance] = useState<any>(null);
-  // const [address, setAccounts] = useState<any>(null);
-  // const [receipt, setTransaction] = useState<any>(null);
-  // const [signedMessage, setMessage] = useState<any>(null);
-  // const [privateKey, setPrivateKey] = useState<any>(null);
   useEffect(() => {
     const init = async () => {
       try {
@@ -160,7 +156,7 @@ function Auth() {
             <Route path="about" element={<About />} />
             <Route path="contact" element={<Contact />} />
             <Route path="form" element={<ListForm />} />
-            <Route path="/dashboard" element={<Dashboard />} >
+            <Route path="/" element={<Dashboard />} >
               <Route path="openmarket" element={<Openmarket />} />
               <Route path="coopmarket" element={<Coopmarket />} />
               <Route path="privatemarket" element={<Privatemarket />} />

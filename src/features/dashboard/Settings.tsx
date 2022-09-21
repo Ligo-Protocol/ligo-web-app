@@ -33,7 +33,7 @@ export function UserSettings({getUserInfo,getChainId,getAccounts,getBalance, get
     return(
         <>
             <h1>Here are your user settings</h1>
-            <Button onClick={getInfo}>Click to show Wallet Address and Private Key</Button>
+            <Button variant="outlined" onClick={getInfo}>Click to show Wallet Address and Private Key</Button>
             {accountdata? <div>
                 
                 <TextField 
