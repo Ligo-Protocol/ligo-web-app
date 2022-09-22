@@ -7,10 +7,8 @@ import "../../assets/css/App.css";
 import ResponsiveAppBar from "../../pages/Navbar/Navbar";
 
 import { Home } from "../../pages/Home";
-import { About } from "../../pages/About";
 // import { Listings } from "../listings/Listings";
 import ListForm from "../listings/ListForm";
-import { Contact } from "../../pages/Contact";
 
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 
@@ -155,8 +153,6 @@ function Auth() {
         <ResponsiveAppBar logged={logout} isLogged={isLogged}/>
         </div>
           <Routes>
-            <Route path="about" element={<About />} />
-            <Route path="contact" element={<Contact />} />
             <Route path="form" element={<ListForm />} />
             <Route path="/" element={<Dashboard />} >
               <Route path="openmarket" element={<Openmarket />} />
@@ -183,9 +179,7 @@ function Auth() {
       <div>
       <BrowserRouter>
         <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="about" element={<About />} />
-          <Route path="contact" element={<Contact />} />
+          <Route path="/" element={<Home logged={login}/>} />
           <Route path="*" element={<PageNotFound />} />
         </Routes>
       </BrowserRouter>
