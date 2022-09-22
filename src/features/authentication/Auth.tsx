@@ -89,6 +89,7 @@ function Auth() {
       return;
     }
     await web3auth.logout();
+    setIsLogged(false);
     setProvider(null);
   };
 
@@ -148,10 +149,11 @@ function Auth() {
   if (provider) {
     return (
       <>
+
+        <BrowserRouter>
         <div>
         <ResponsiveAppBar logged={logout} isLogged={isLogged}/>
         </div>
-        <BrowserRouter>
           <Routes>
             <Route path="about" element={<About />} />
             <Route path="contact" element={<Contact />} />

@@ -15,17 +15,17 @@ export function Dashboard(){
     return(
         <>
         <div className={styles.sidebar}>
-            <ul>
-                <li><Link className={styles.link} to="openmarket"><Button ><PublicIcon/> Open marketplace</Button></Link></li>
-                <li><Link className={styles.link} to="coopmarket"><Button ><GroupsIcon/>COOP marketplace</Button></Link></li>
-                <li><Link className={styles.link}  to="privatemarket"><Button><GroupIcon/>Private marketplace</Button></Link></li>
-                <li><Link className={styles.link}  to="activelistings"><Button><PlayArrowIcon/>Active listings</Button></Link></li>
-                <li><Link className={styles.link}  to="bookmarks"><Button><BookmarksIcon/>Bookmarks</Button></Link></li>
-                <li><Link className={styles.link}  to="dispute"><Button><LocalFireDepartmentIcon/>Disputes</Button></Link></li>
-                <li><Link className={styles.link}  to="statistics"><Button><AnalyticsIcon/>Statistics</Button></Link></li>
-                <li><Link className={styles.link}  to="messaging"><Button><MailOutlineIcon/>Messaging</Button></Link></li>
-                <li><Link className={styles.link}  to="settings"><Button><SettingsIcon/> User settings</Button></Link></li>
-            </ul>
+                <br/>
+                <br/>
+                <br/><Link className={styles.link} to="openmarket"><Button className={styles.sidebutton} style={{ color: 'black' }} variant="outlined" ><PublicIcon/> Open marketplace</Button></Link><br/>
+                <br/><Link className={styles.link} to="coopmarket"><Button className={styles.sidebutton}  style={{ color: 'black' }} variant="outlined"><GroupsIcon/>COOP marketplace</Button></Link><br/>
+                <br/><Link className={styles.link}  to="privatemarket"><Button className={styles.sidebutton}  style={{ color: 'black' }} variant="outlined"><GroupIcon/>Private marketplace</Button></Link><br/>
+                <br/><Link className={styles.link}  to="activelistings"><Button className={styles.sidebutton}  style={{ color: 'black' }} variant="outlined"><PlayArrowIcon/>Active listings</Button></Link><br/>
+                <br/><Link className={styles.link}  to="bookmarks"><Button  className={styles.sidebutton} style={{ color: 'black' }} variant="outlined"><BookmarksIcon/>Bookmarks</Button></Link><br/>
+                <br/><Link className={styles.link}  to="dispute"><Button  className={styles.sidebutton} style={{ color: 'black' }} variant="outlined"><LocalFireDepartmentIcon/>Disputes</Button></Link><br/>
+                <br/><Link className={styles.link}  to="statistics"><Button  className={styles.sidebutton} style={{ color: 'black' }} variant="outlined"><AnalyticsIcon/>Statistics</Button></Link><br/>
+                <br/><Link className={styles.link}  to="messaging"><Button  className={styles.sidebutton} style={{ color: 'black' }} variant="outlined"><MailOutlineIcon/>Messaging</Button></Link><br/>
+                <br/><Link className={styles.link}  to="settings"><Button className={styles.sidebutton}  style={{ color: 'black' }} variant="outlined"><SettingsIcon/> User settings</Button></Link><br/>
         </div>
         <div className={styles.outlet}>
             <Outlet/>
