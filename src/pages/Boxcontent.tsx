@@ -2,11 +2,12 @@ import { Box } from "@mui/material"
 import Grid from "@mui/material/Grid"
 import Typography from "@mui/material/Typography"
 import { Container } from "react-bootstrap"
+import { Button } from "@mui/material";
 
-import bgImage from "../../src/assets/image/pexels-albin-berlin-919073.jpg"
+import bgImage from "../../src/assets/image/automobile-gd3b510a1c_1920.jpg"
 
-export function BoxContent() {
-    return <Box minHeight="75vh"
+export function BoxContent({logged}) {
+    return <Box minHeight="95vh"
         width="100%"
         sx={{
             backgroundImage: `url(${bgImage})`,
@@ -16,25 +17,52 @@ export function BoxContent() {
             placeItems: "center",
         }}>
         <Container>
-            <Grid container item xs={12} lg={7} justifyContent="center" mx="auto">
+            <Grid container spacing={2} justifyContent="center" mx="auto">
+            <Grid item xs={12}>
                 <Typography
                     variant="h1"
                     color="white"
                     textAlign="center"
-                    fontFamily="roboto"
+                    fontFamily="calibri"
                 >
                     Ligo Protocol{" "}
                 </Typography>
+            </Grid>
+            <Grid item xs={12}>
                 <Typography
                     variant="h5"
                     color="white"
                     textAlign="center"
-                    fontFamily="roboto"
-                    px={{ xs: 6, lg: 12 }}
-                    mt={1}
+                    fontFamily="calibri"
                 >
                     Your blockchain powered Car sharing platform.
                 </Typography>
+                </Grid>
+                <Grid item xs={0}>
+                    <Button 
+                        variant="contained" 
+                        color="success" 
+                        onClick={logged}
+                        sx={{
+                            margin: "15px"
+                        }}
+                    >
+                        Get Started
+                    </Button>
+                </Grid>
+                <Grid item xs={0}>
+                    <Button 
+                        variant="contained" 
+                        rel="noopener noreferrer" 
+                        href="https://ligo.dev/docs" 
+                        target="_blank"
+                        sx={{
+                            margin: "15px"
+                        }}
+                    >
+                        Read the Docs
+                    </Button>
+                    </Grid>
             </Grid>
 
         </Container>
