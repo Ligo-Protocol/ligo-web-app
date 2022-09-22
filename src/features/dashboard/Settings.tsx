@@ -3,6 +3,7 @@ import { TextField } from "@material-ui/core";
 import { Button } from "@mui/material";
 import IconButton from '@mui/material/IconButton';
 import ContentCopyIcon from '@mui/icons-material/ContentCopy';
+import styles from '../../assets/css/features/dashboard/settings.module.css'
 
 export function UserSettings({getUserInfo,getChainId,getAccounts,getBalance, getPrivateKey}){
 
@@ -31,8 +32,7 @@ export function UserSettings({getUserInfo,getChainId,getAccounts,getBalance, get
     }    
     
     return(
-        <>
-            <h1>Here are your user settings</h1>
+        <div className={styles.center}>
             <Button variant="outlined" onClick={getInfo}>Click to show Wallet Address and Private Key</Button>
             {accountdata? <div>
                 
@@ -66,7 +66,6 @@ export function UserSettings({getUserInfo,getChainId,getAccounts,getBalance, get
                     ><ContentCopyIcon/></IconButton>
                 </> : null}
             </div> :null}
-    
-        </>
+        </div>
     )
 }

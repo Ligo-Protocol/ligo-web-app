@@ -5,12 +5,16 @@ import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import Button from '@mui/material/Button';
 // import AdbIcon from '@mui/icons-material/Adb';
+// import styles from  '../../assets/css/pages/Navbar/Navbar.module.css';
+// import { Link } from 'react-router-dom';
 
 const ResponsiveAppBar = ({logged,isLogged}) => {
 
 
   return (
-    <AppBar position="static" style={{ background: '#2E3B55' }}>
+    <>
+    
+    <AppBar position="static" style={{ background: 'black' }}>
       <Container maxWidth="xl">
         <Toolbar disableGutters>
                {/* <AdbIcon sx={{ display: { xs: 'none', md: 'flex' }, mr: 1 }} /> */}
@@ -22,24 +26,32 @@ const ResponsiveAppBar = ({logged,isLogged}) => {
                   sx={{
                     mr: 2,
                     display: { xs: 'none', md: 'flex' },
-                    fontFamily: 'roboto',
+                    fontFamily: 'calibri',
                     fontWeight: 700,
                     color: 'inherit',
                     textDecoration: 'none',
                     width: "50vh"
                   }}
                 >
-                  Ligo Protocol
+                  LIGO PROTOCOL
                 </Typography>
                   <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' },justifyContent:'right', alignItems:'right' }}>
-                              <Button style={{ background: '#2E3B55' }} variant="contained">About</Button>
-                              <Button style={{ background: '#2E3B55' }} variant="contained">Contact</Button>
-                              <Button style={{ background: '#2E3B55' }} variant="contained" rel="noopener noreferrer" href="https://ligo.dev/docs" target="_blank">Docs</Button>
-                              <Button variant="contained" color={isLogged?"error":"success"} onClick={logged}>{isLogged?"Logout":"Login"}</Button>
+                    {!isLogged?
+                    <>
+                              {/* <Button style={{ background: 'black' }}>Contact</Button>
+                              <Button style={{ background: 'black' }} rel="noopener noreferrer" href="https://ligo.dev/docs" target="_blank">Docs</Button> */}
+                              <Button variant="contained" color="success" onClick={logged}>Login</Button>
+                    </>:
+                    <>
+                    {/* <Link className={styles.link} to="openmarket"><Button style={{ background: '#2E3B55' }}>Open marketplace</Button></Link> */}
+                    <Button variant="contained" color="error" onClick={logged}>Logout</Button>
+                    </>
+                      }         
                   </Box>
         </Toolbar>
       </Container>
     </AppBar>
+    </>
   );
 };
 export default ResponsiveAppBar;

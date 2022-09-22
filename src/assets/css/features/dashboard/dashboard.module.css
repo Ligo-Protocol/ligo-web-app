@@ -1,6 +1,6 @@
 .link {
     text-decoration: none;
-    color: inherit;
+    color: black;
 }
 
 .list {
@@ -16,4 +16,8 @@
     width: 290px;
     float: left;
 
+}
+
+.sidebutton{
+    width:270px;
 }
