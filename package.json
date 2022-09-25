@@ -26,6 +26,7 @@
     "@web3auth/web3auth": "^1.1.2",
     "bootstrap": "^5.2.0",
     "crypto": "^1.0.1",
+    "did-session": "^0.1.4",
     "dids": "^3.2.0",
     "dotenv": "^16.0.1",
     "dotenv-webpack": "^8.0.1",
