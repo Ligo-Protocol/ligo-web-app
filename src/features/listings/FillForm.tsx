@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import TextField from "@material-ui/core/TextField";
+// import TextField from "@material-ui/core/TextField";
 import FormControl from "@material-ui/core/FormControl";
 import Select from "@material-ui/core/Select";
 import MenuItem from "@material-ui/core/MenuItem";
@@ -19,6 +19,13 @@ import { brandInfo, descriptionInfo, imageInfo, modelDateInfo, modelInfo, postal
 
 import styles from "../../assets/css/features/listings/ListForm.module.css"
 
+import dayjs, { Dayjs } from 'dayjs';
+import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
+import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
+import { DateTimePicker } from '@mui/x-date-pickers/DateTimePicker';
+import TextField from '@mui/material/TextField';
+import { Car } from "../../ts-ligo-vocab/src/Car";
+import { Offer, UnitPriceSpecification } from "../../ts-ligo-vocab/src";
 // import HelpIcon Information
 
 const defaultValues = {
@@ -27,7 +34,7 @@ const defaultValues = {
   image: "",
   seller: "",
   areaServed: "",
-  advanceBookingRequirement:"",
+  advanceBookingRequirement:0,
 
   //Car vocab
   modelDate: "",
@@ -52,6 +59,9 @@ const defaultValues = {
 
 const FillForm = () => {
   const [formValues, setFormValues] = useState(defaultValues);
+  // const [selectedFile, setSelectedFile]: any = useState();
+  const [newFile, setnewFile]: any = useState();
+  const [imageCid, setimageCid]: any = useState();
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -73,39 +83,46 @@ const FillForm = () => {
     event.preventDefault();
     console.log(formValues);
     // Creating offer from the form input
-    const listoffer = {
+
+    //Car vocab
+    const modelDate:any = formValues.modelDate
+    const cardetails: Car = {
+      modelDate: modelDate,
+      vehicleConfiguration: formValues.vehicleConfiguration,
+      brand: formValues.brand,
+      manufacturer: formValues.manufacturer,
+      model: formValues.model
+    }
+
+    //PriceSpecification
+    const validFdetail: any = validF;
+    const validTdetail: any = validT;
+    const eligibleQuantitydetail: any = formValues.eligibleQuantity;
+    const pricedetails: UnitPriceSpecification = {
+      price: formValues.price,
+      priceCurrency: formValues.priceCurrency,
+      validFrom: validFdetail,
+      validThrough: validTdetail,
+      eligibleQuantity: eligibleQuantitydetail
+    }
+
+    //Offer vocab
+    const areaServeddata:any = formValues.areaServed;
+    const advancedBookingRequirement:any = formValues.advanceBookingRequirement;
+    const listoffer: Offer = {
       description: formValues.description,
       image: imageCid,
-      itemOffered: {
-        vehicleIdentificationNumber: formValues.vehicleIdentificationNumber,
-        modelDate: formValues.modelDate,
-        // brand: {
-        //   name: formValues.brandname,
-        // },
-        model: formValues.model,
-      },
       seller: formValues.seller,
-      // areaServed: {
-      //   postalCode: formValues.postalcode,
-      // },
-      // priceSpecification: {
-      //   price: formValues.price,
-      //   priceCurrency: "USD",
-      // },
-      // advanceBookingRequirement: {
-      //   value: formValues.value,
-      //   unitCode: formValues.unitCode,
-      // },
+      areaServed: areaServeddata,
+      advanceBookingRequirement: advancedBookingRequirement,
+      itemOffered: cardetails,
+      priceSpecification: pricedetails
     };
     const listCreator = await createCeramicDoc(listoffer);
     console.log(listCreator);
   };
 
   // Upload image functions
-  // const [selectedFile, setSelectedFile]: any = useState();
-  const [newFile, setnewFile]: any = useState();
-  const [imageCid, setimageCid]: any = useState();
-
   async function fileSelectHandler(event: any) {
     // Changing filename for easy retrieval from web3storage by ipfs
 
@@ -131,7 +148,26 @@ const FillForm = () => {
     });
     setimageCid(cid);
     console.log("IMAGE CID ------------->>>", cid);
+
+
   }
+
+  const [validF, setValidF] = React.useState<Dayjs | null>(
+    dayjs('2025-08-18T21:11:54'),
+  );
+  const [validT, setValidT] = React.useState<Dayjs | null>(
+    dayjs('2026-08-18T21:11:54'),
+  );
+
+  const handleValidFromChange = (newValue: Dayjs | null) => {
+    setValidF(newValue);
+    console.log(validF);
+  };
+  const handleValidThroughChange = (newValue: Dayjs | null) => {
+    setValidT(newValue);
+    console.log(validT);
+  };
+  
   return (
     <div className={styles.center}>
     <h3>Offer details: </h3>
@@ -354,6 +390,26 @@ const FillForm = () => {
                 </IconButton>
               </Tooltip>
             </div>
+          </div>
+          <div className={styles.inputbox}>
+            <LocalizationProvider dateAdapter={AdapterDayjs}>
+                <DateTimePicker
+                  label="Valid From"
+                  value={validF}
+                  onChange={handleValidFromChange}
+                  renderInput={(params) => <TextField {...params} />}
+                />
+            </LocalizationProvider>
+          </div>
+          <div className={styles.inputbox}>
+            <LocalizationProvider dateAdapter={AdapterDayjs}>
+                <DateTimePicker
+                  label="Valid Through"
+                  value={validT}
+                  onChange={handleValidThroughChange}
+                  renderInput={(params) => <TextField {...params} />}
+                />
+            </LocalizationProvider>
           </div>
           <div className={styles.submit}>
           <Button variant="contained" color="primary" type="submit">
