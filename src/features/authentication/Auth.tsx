@@ -23,7 +23,6 @@ import { UserSettings } from "../dashboard/Settings";
 import { Statistics } from "../dashboard/Statistics";
 import { FileDisputes } from "../disputes/FileDisputes";
 import {Dashboard} from "../dashboard/Dashboard";
-import { TestSchema } from "../listings/testSchema";
 import FillForm from "../listings/FillForm";
 
 const clientId: any = process.env.REACT_APP_CLIENT_ID; // get from https://dashboard.web3auth.io
@@ -183,7 +182,6 @@ function Auth() {
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<Home logged={login}/>} />
-          <Route path="schematest" element={<TestSchema/>} />
           <Route path="*" element={<PageNotFound />} />
         </Routes>
       </BrowserRouter>

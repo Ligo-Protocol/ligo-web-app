@@ -24,8 +24,8 @@ import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { DateTimePicker } from '@mui/x-date-pickers/DateTimePicker';
 import TextField from '@mui/material/TextField';
-import { Car } from "../../ts-ligo-vocab/src/Car";
-import { Offer, UnitPriceSpecification } from "../../ts-ligo-vocab/src";
+// import { Car } from "../../ts-ligo-vocab/src/Car";
+// import { Offer, UnitPriceSpecification } from "../../ts-ligo-vocab/src";
 // import HelpIcon Information
 
 const defaultValues = {
@@ -86,7 +86,7 @@ const FillForm = () => {
 
     //Car vocab
     const modelDate:any = formValues.modelDate
-    const cardetails: Car = {
+    const cardetails = {
       modelDate: modelDate,
       vehicleConfiguration: formValues.vehicleConfiguration,
       brand: formValues.brand,
@@ -98,7 +98,7 @@ const FillForm = () => {
     const validFdetail: any = validF;
     const validTdetail: any = validT;
     const eligibleQuantitydetail: any = formValues.eligibleQuantity;
-    const pricedetails: UnitPriceSpecification = {
+    const pricedetails = {
       price: formValues.price,
       priceCurrency: formValues.priceCurrency,
       validFrom: validFdetail,
@@ -109,7 +109,7 @@ const FillForm = () => {
     //Offer vocab
     const areaServeddata:any = formValues.areaServed;
     const advancedBookingRequirement:any = formValues.advanceBookingRequirement;
-    const listoffer: Offer = {
+    const listoffer = {
       description: formValues.description,
       image: imageCid,
       seller: formValues.seller,
@@ -222,7 +222,7 @@ const FillForm = () => {
              <div className={styles.inputbox}>
               <TextField
                 id="areaServed-input"
-                name="areaserved"
+                name="areaServed"
                 label="Area Served"
                 type="text"
                 value={formValues.areaServed}
@@ -237,8 +237,8 @@ const FillForm = () => {
 
             <div className={styles.inputbox}>
             <TextField
-                id="value-input"
-                name="value"
+                id="advanceBookingRequirement-input"
+                name="advanceBookingRequirement"
                 label="Advanced booking requirement"
                 type="number"
                 InputProps={{ inputProps: { min: 0} }}
@@ -368,7 +368,7 @@ const FillForm = () => {
 
               <FormControl>
                 <Select
-                  name="unitCode"
+                  name="priceCurrency"
                   label="Price Currency"
                   value={formValues.priceCurrency}
                   onChange={handleInputChange}
