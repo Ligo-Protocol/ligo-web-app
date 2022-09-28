@@ -70,7 +70,7 @@ const FillForm = () => {
       [name]: value,
     });
   };
-
+ 
   const handleNumberInputChange = (e) => {
     const { name, value } = e.target;
     setFormValues({
@@ -89,22 +89,27 @@ const FillForm = () => {
     const cardetails = {
       modelDate: modelDate,
       vehicleConfiguration: formValues.vehicleConfiguration,
-      brand: formValues.brand,
-      manufacturer: formValues.manufacturer,
+      brand: {
+        name: formValues.brand
+      },
+      manufacturer: {
+        name: formValues.manufacturer
+      },
       model: formValues.model
     }
 
     //PriceSpecification
-    const validFdetail: any = validF;
-    const validTdetail: any = validT;
-    const eligibleQuantitydetail: any = formValues.eligibleQuantity;
+    const validFdetail = new Date(validF.toISOString()) ;
+    console.log("validFdetail",validFdetail);
+    const validTdetail = new Date(validT.toISOString()) ;
     const pricedetails = {
       price: formValues.price,
       priceCurrency: formValues.priceCurrency,
       validFrom: validFdetail,
-      validThrough: validTdetail,
-      eligibleQuantity: eligibleQuantitydetail
+      validThrough: validTdetail
     }
+
+
 
     //Offer vocab
     const areaServeddata:any = formValues.areaServed;
@@ -113,8 +118,12 @@ const FillForm = () => {
       description: formValues.description,
       image: imageCid,
       seller: formValues.seller,
-      areaServed: areaServeddata,
-      advanceBookingRequirement: advancedBookingRequirement,
+      areaServed: {
+        postalCode:areaServeddata
+      },
+      advanceBookingRequirement: {
+        value: advancedBookingRequirement
+      },
       itemOffered: cardetails,
       priceSpecification: pricedetails
     };

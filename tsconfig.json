@@ -23,6 +23,7 @@
     "jsx": "react-jsx",
     "noImplicitAny": false,
     "declaration": true /* Generate .d.ts files from TypeScript and JavaScript files in your project. */,
+    "strictNullChecks" : false
     
   },
   "exclude": ["node_modules", "examples"],
