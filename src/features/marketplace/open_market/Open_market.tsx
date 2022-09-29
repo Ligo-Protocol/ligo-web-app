@@ -9,7 +9,7 @@ export function Openmarket(){
         <div className={styles.center}>
         <h1>OPEN MARKETPLACE</h1>
         <div className={styles.primary}>
-        <Link className={styles.link} to="/form">
+        <Link className={styles.link} to="/fillform">
             <Button variant="contained" style={{ background: "grey"}}>
                 HOST YOUR CAR
             </Button>

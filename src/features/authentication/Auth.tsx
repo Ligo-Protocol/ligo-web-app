@@ -8,7 +8,6 @@ import ResponsiveAppBar from "../../pages/Navbar/Navbar";
 
 import { Home } from "../../pages/Home";
 // import { Listings } from "../listings/Listings";
-import ListForm from "../listings/ListForm";
 
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 
@@ -154,7 +153,6 @@ function Auth() {
         <ResponsiveAppBar logged={logout} isLogged={isLogged}/>
         </div>
           <Routes>
-            <Route path="form" element={<ListForm />} />
             <Route path="fillform" element={<FillForm />} />
             <Route path="/" element={<Dashboard />} >
               <Route path="openmarket" element={<Openmarket />} />

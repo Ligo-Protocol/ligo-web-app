@@ -15,7 +15,22 @@ import { createCeramicDoc } from "./createCeramicDoc";
 // imports for uploading images
 import process from "process";
 import { Web3Storage } from "web3.storage";
-import { brandInfo, descriptionInfo, imageInfo, modelDateInfo, modelInfo, postalCodeInfo, priceInfo, sellerInfo, unitCodeInfo, valueInfo, vinInfo } from "./FormHelpInfo";
+import {descriptionInfo, 
+  imageInfo, 
+  sellerInfo, 
+  areaServedInfo, 
+  advanceBookingRequirementInfo, 
+  modelDateInfo, 
+  vehicleConfigurationInfo, 
+  vinInfo,
+  brandInfo,
+  manufacturerInfo,
+  modelInfo,
+  priceInfo,
+  priceCurrencyInfo,
+  validFromInfo,
+  validThroughInfo
+} from "./FormHelpInfo";
 
 import styles from "../../assets/css/features/listings/ListForm.module.css"
 
@@ -28,11 +43,14 @@ import TextField from '@mui/material/TextField';
 // import { Offer, UnitPriceSpecification } from "../../ts-ligo-vocab/src";
 // import HelpIcon Information
 
+const VT = new Date().toISOString().substring(0, 10);
+const VF = new Date().toISOString().substring(0, 10);
+
 const defaultValues = {
   //Offer vocab
   description: "",
   image: "",
-  seller: "",
+  seller: "did:example:carseller",
   areaServed: "",
   advanceBookingRequirement:0,
 
@@ -47,8 +65,8 @@ const defaultValues = {
   //PriceSpecification vocab
   price: 0,
   priceCurrency: "",
-  validFrom: "",
-  validThrough: "",
+  validFrom: VF,
+  validThrough: VT,
   eligibleQuantity: "",
 
   // //LigoAgreementState
@@ -81,6 +99,7 @@ const FillForm = () => {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
+    console.log("VT VF", VT, VF)
     console.log(formValues);
     // Creating offer from the form input
 
@@ -99,14 +118,14 @@ const FillForm = () => {
     }
 
     //PriceSpecification
-    const validFdetail = new Date(validF.toISOString()) ;
-    console.log("validFdetail",validFdetail);
-    const validTdetail = new Date(validT.toISOString()) ;
+    // const validFdetail = new Date(validF.toISOString()) ;
+    // console.log("validFdetail",validFdetail);
+    // const validTdetail = new Date(validT.toISOString()) ;
     const pricedetails = {
       price: formValues.price,
       priceCurrency: formValues.priceCurrency,
-      validFrom: validFdetail,
-      validThrough: validTdetail
+      validFrom: VF,
+      validThrough: VT
     }
 
 
@@ -237,7 +256,7 @@ const FillForm = () => {
                 value={formValues.areaServed}
                 onChange={handleInputChange}
               />
-              <Tooltip title={postalCodeInfo}>
+              <Tooltip title={areaServedInfo}>
                 <IconButton>
                   <HelpIcon />
                 </IconButton>
@@ -254,7 +273,7 @@ const FillForm = () => {
                 value={formValues.advanceBookingRequirement}
                 onChange={handleNumberInputChange}
               />
-              <Tooltip title={valueInfo}>
+              <Tooltip title={advanceBookingRequirementInfo}>
                 <IconButton>
                   <HelpIcon />
                 </IconButton>
@@ -287,7 +306,7 @@ const FillForm = () => {
                 value={formValues.vehicleConfiguration}
                 onChange={handleInputChange}
               />
-              <Tooltip title={vinInfo}>
+              <Tooltip title={vehicleConfigurationInfo}>
                 <IconButton>
                   <HelpIcon />
                 </IconButton>
@@ -333,7 +352,7 @@ const FillForm = () => {
                 value={formValues.manufacturer}
                 onChange={handleInputChange}
               />
-              <Tooltip title={modelInfo}>
+              <Tooltip title={manufacturerInfo}>
                 <IconButton>
                   <HelpIcon />
                 </IconButton>
@@ -393,7 +412,7 @@ const FillForm = () => {
                   </MenuItem>
                 </Select>
               </FormControl>
-              <Tooltip title={unitCodeInfo}>
+              <Tooltip title={priceCurrencyInfo}>
                 <IconButton>
                   <HelpIcon />
                 </IconButton>
@@ -409,6 +428,11 @@ const FillForm = () => {
                   renderInput={(params) => <TextField {...params} />}
                 />
             </LocalizationProvider>
+              <Tooltip title={validFromInfo}>
+                <IconButton>
+                  <HelpIcon />
+                </IconButton>
+              </Tooltip>
           </div>
           <div className={styles.inputbox}>
             <LocalizationProvider dateAdapter={AdapterDayjs}>
@@ -419,6 +443,11 @@ const FillForm = () => {
                   renderInput={(params) => <TextField {...params} />}
                 />
             </LocalizationProvider>
+              <Tooltip title={validThroughInfo}>
+                <IconButton>
+                  <HelpIcon />
+                </IconButton>
+              </Tooltip>
           </div>
           <div className={styles.submit}>
           <Button variant="contained" color="primary" type="submit">
