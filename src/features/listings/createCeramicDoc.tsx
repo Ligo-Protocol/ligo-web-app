@@ -98,6 +98,26 @@ const createCeramicDoc = async (offer) => {
               }
               description
               image
+              itemOffered {
+                vehicleIdentificationNumber
+                modelDate
+                brand {
+                  name
+                }
+              }
+              areaServed {
+                postalCode
+              }
+              priceSpecification {
+                price
+                priceCurrency
+                validFrom
+                validThrough
+              }
+              advanceBookingRequirement {
+                value
+                unitCode
+              }
             }
           }
         }
