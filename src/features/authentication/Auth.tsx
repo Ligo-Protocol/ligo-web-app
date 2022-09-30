@@ -32,6 +32,7 @@ function Auth() {
     null
   );
   const [ isLogged, setIsLogged ] = useState<boolean>(false);
+  const [accountdata, setAccInfo] = useState<any>();
 
   useEffect(() => {
     const init = async () => {
@@ -52,6 +53,9 @@ function Auth() {
         if (web3auth.provider) {
           setProvider(web3auth.provider);
         }
+        const rpc = new RPC(web3auth.provider);
+        setAccInfo(await rpc.getAccounts());
+
       } catch (error) {
         console.error(error);
       }
@@ -153,7 +157,7 @@ function Auth() {
         <ResponsiveAppBar logged={logout} isLogged={isLogged}/>
         </div>
           <Routes>
-            <Route path="fillform" element={<FillForm />} />
+            <Route path="fillform" element={<FillForm accountdata={accountdata}/>} />
             <Route path="/" element={<Dashboard />} >
               <Route path="openmarket" element={<Openmarket />} />
               <Route path="coopmarket" element={<Coopmarket />} />

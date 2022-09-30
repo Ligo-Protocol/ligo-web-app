@@ -60,7 +60,7 @@ const createCeramicDoc = async (offer) => {
   // Authenticate the DID with the provider
   await did.authenticate();
   compose.setDID(did);
-  console.log("did.authenticated = ", did.authenticated);
+  console.log("DID",did,"did.authenticated = ", did.authenticated);
 
   // Get current viewer
   const viewerResult = await compose.executeQuery(`
