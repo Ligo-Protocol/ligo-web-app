@@ -74,7 +74,7 @@ const defaultValues = {
   // startLocation: ""
 };
 
-const FillForm = ({accountdata}) => {
+const OfferForm = ({accountdata}) => {
   const [formValues, setFormValues] = useState(defaultValues);
   // const [selectedFile, setSelectedFile]: any = useState();
   const [newFile, setnewFile]: any = useState();
@@ -445,4 +445,4 @@ const FillForm = ({accountdata}) => {
     </div>
   );
 };
-export default FillForm;
+export default OfferForm;

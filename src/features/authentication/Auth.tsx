@@ -22,7 +22,7 @@ import { UserSettings } from "../dashboard/Settings";
 import { Statistics } from "../dashboard/Statistics";
 import { FileDisputes } from "../disputes/FileDisputes";
 import {Dashboard} from "../dashboard/Dashboard";
-import FillForm from "../listings/FillForm";
+import OfferForm from "../listings/OfferForm";
 
 const clientId: any = process.env.REACT_APP_CLIENT_ID; // get from https://dashboard.web3auth.io
 
@@ -157,7 +157,7 @@ function Auth() {
         <ResponsiveAppBar logged={logout} isLogged={isLogged}/>
         </div>
           <Routes>
-            <Route path="fillform" element={<FillForm accountdata={accountdata}/>} />
+            <Route path="fillform" element={<OfferForm accountdata={accountdata}/>} />
             <Route path="/" element={<Dashboard />} >
               <Route path="openmarket" element={<Openmarket />} />
               <Route path="coopmarket" element={<Coopmarket />} />
