@@ -15,6 +15,8 @@ import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
 import Grid from "@mui/material/Grid";
 
+import { Link } from "react-router-dom";
+
 export function Listings() {
   const [responseData, setResponseData] = useState<any>([]);
   // Connect, Generate Seed and Authenticate
@@ -103,6 +105,29 @@ export function Listings() {
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
+  async function GotoSingleOffer(OfferId) {
+    const fetchResult1 = await compose.executeQuery(
+  `
+    query($nodeid: ID!) {
+      node(id: $nodeid) {
+        id
+        ... on Offer {
+          seller {
+            id
+          }
+          description
+          image
+        }
+      }
+    }
+  `,
+  {nodeid:OfferId}
+  );
+
+  console.log("Selected Offer ID", OfferId);
+  console.log("Single Offer details:", fetchResult1);
+  }
+
   return (
     <>
       <Box sx={{ flexGrow: 1 }}>
@@ -179,9 +204,12 @@ export function Listings() {
                   </Typography>
                 </CardContent>
                 <CardActions>
-                  <Button variant="outlined" color="secondary">
-                    View Offer
-                  </Button>
+                <Link to={{pathname: `/${item.node.id}`}} >
+                  {/* onClick={() => GotoSingleOffer(item.node.id)} */}
+                    <Button variant="outlined" color="secondary">
+                      View Offer
+                    </Button>
+                  </Link>
                 </CardActions>
               </Card>
             </div>
