@@ -107,6 +107,7 @@ const OfferForm = ({accountdata}) => {
     const modelDate:any = formValues.modelDate
     const cardetails = {
       modelDate: modelDate,
+      vehicleIdentificationNumber: formValues.vehicleIdentificationNumber,
       vehicleConfiguration: formValues.vehicleConfiguration,
       brand: {
         name: formValues.brand

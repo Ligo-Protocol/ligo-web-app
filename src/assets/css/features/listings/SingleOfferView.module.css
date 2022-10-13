@@ -12,3 +12,13 @@
     padding: 20px;
     height: 100px;
 }
+
+.image {
+  display: grid;
+  place-items: center;
+}
+
+.longtext {
+  padding: 20px;
+  width: 700px;
+}
