@@ -60,7 +60,7 @@ const createCeramicDoc = async (offer) => {
   // Authenticate the DID with the provider
   await did.authenticate();
   compose.setDID(did);
-  console.log("did.authenticated = ", did.authenticated);
+  console.log("DID",did,"did.authenticated = ", did.authenticated);
 
   // Get current viewer
   const viewerResult = await compose.executeQuery(`
@@ -128,7 +128,7 @@ const createCeramicDoc = async (offer) => {
   // Fetch a specific offer by ID
   const fetchResult1 = await compose.executeQuery(`
       query {
-        node(id: "kjzl6kcym7w8y73zeefuu28gqvtu1qd210oyid7ft8rqwo3re1w89tdccooag1b") {
+        node(id: "kjzl6kcym7w8y6ys9rg4cry5814jrhj5gz05ja582wqifr7pn7f1qquwfozryvp") {
           id
           ... on Offer {
             seller {

@@ -15,6 +15,8 @@ import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
 import Grid from "@mui/material/Grid";
 
+import { Link } from "react-router-dom";
+
 export function Listings() {
   const [responseData, setResponseData] = useState<any>([]);
   // Connect, Generate Seed and Authenticate
@@ -179,9 +181,11 @@ export function Listings() {
                   </Typography>
                 </CardContent>
                 <CardActions>
-                  <Button variant="outlined" color="secondary">
-                    View Offer
-                  </Button>
+                <Link to={{pathname: `/${item.node.id}`}} >
+                    <Button variant="outlined" color="secondary">
+                      View Offer
+                    </Button>
+                  </Link>
                 </CardActions>
               </Card>
             </div>

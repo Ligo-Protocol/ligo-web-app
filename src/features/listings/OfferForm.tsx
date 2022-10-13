@@ -17,7 +17,6 @@ import process from "process";
 import { Web3Storage } from "web3.storage";
 import {descriptionInfo, 
   imageInfo, 
-  sellerInfo, 
   areaServedInfo, 
   advanceBookingRequirementInfo, 
   modelDateInfo, 
@@ -75,7 +74,7 @@ const defaultValues = {
   // startLocation: ""
 };
 
-const FillForm = () => {
+const OfferForm = ({accountdata}) => {
   const [formValues, setFormValues] = useState(defaultValues);
   // const [selectedFile, setSelectedFile]: any = useState();
   const [newFile, setnewFile]: any = useState();
@@ -99,6 +98,7 @@ const FillForm = () => {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
+    console.log("Account address",accountdata);
     console.log("VT VF", VT, VF)
     console.log(formValues);
     // Creating offer from the form input
@@ -107,6 +107,7 @@ const FillForm = () => {
     const modelDate:any = formValues.modelDate
     const cardetails = {
       modelDate: modelDate,
+      vehicleIdentificationNumber: formValues.vehicleIdentificationNumber,
       vehicleConfiguration: formValues.vehicleConfiguration,
       brand: {
         name: formValues.brand
@@ -133,10 +134,12 @@ const FillForm = () => {
     //Offer vocab
     const areaServeddata:any = formValues.areaServed;
     const advancedBookingRequirement:any = formValues.advanceBookingRequirement;
+    const sellerID:string = "did:pkh:"+accountdata.toString();
+    console.log("SellerID",sellerID)
     const listoffer = {
       description: formValues.description,
       image: imageCid,
-      seller: formValues.seller,
+      seller: sellerID,
       areaServed: {
         postalCode:areaServeddata
       },
@@ -230,23 +233,7 @@ const FillForm = () => {
                 </IconButton>
               </Tooltip>
             </div>
-            
-            <div className={styles.inputbox}>
-              <TextField
-                id="seller-input"
-                name="seller"
-                label="Seller ID"
-                type="text"
-                value={formValues.seller}
-                onChange={handleInputChange}
-              />
-              <Tooltip title={sellerInfo}>
-                <IconButton>
-                  <HelpIcon />
-                </IconButton>
-              </Tooltip>
-            </div>
-            
+          
              <div className={styles.inputbox}>
               <TextField
                 id="areaServed-input"
@@ -459,4 +446,4 @@ const FillForm = () => {
     </div>
   );
 };
-export default FillForm;
+export default OfferForm;

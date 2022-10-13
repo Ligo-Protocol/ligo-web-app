@@ -22,7 +22,8 @@ import { UserSettings } from "../dashboard/Settings";
 import { Statistics } from "../dashboard/Statistics";
 import { FileDisputes } from "../disputes/FileDisputes";
 import {Dashboard} from "../dashboard/Dashboard";
-import FillForm from "../listings/FillForm";
+import OfferForm from "../listings/OfferForm";
+import { SingleOfferView } from "../listings/SingleOfferView";
 
 const clientId: any = process.env.REACT_APP_CLIENT_ID; // get from https://dashboard.web3auth.io
 
@@ -32,6 +33,7 @@ function Auth() {
     null
   );
   const [ isLogged, setIsLogged ] = useState<boolean>(false);
+  const [accountdata, setAccInfo] = useState<any>();
 
   useEffect(() => {
     const init = async () => {
@@ -40,9 +42,9 @@ function Auth() {
           clientId,
           chainConfig: {
             chainNamespace: CHAIN_NAMESPACES.EIP155,
-            chainId: "0x4",
+            chainId: "0x5",
             rpcTarget:
-              "https://rinkeby.infura.io/v3/9834efc01c904696a10cb3c37c72727c", // This is the public RPC we have added, please pass on your own endpoint while creating an app
+              "https://goerli.infura.io/v3/9834efc01c904696a10cb3c37c72727c", // This is the public RPC we have added, please pass on your own endpoint while creating an app
           },
         });
 
@@ -52,6 +54,9 @@ function Auth() {
         if (web3auth.provider) {
           setProvider(web3auth.provider);
         }
+        const rpc = new RPC(web3auth.provider);
+        setAccInfo(await rpc.getAccounts());
+
       } catch (error) {
         console.error(error);
       }
@@ -153,7 +158,8 @@ function Auth() {
         <ResponsiveAppBar logged={logout} isLogged={isLogged}/>
         </div>
           <Routes>
-            <Route path="fillform" element={<FillForm />} />
+            <Route path="fillform" element={<OfferForm accountdata={accountdata}/>} />
+            <Route path="/:offerid" element={<SingleOfferView/>} />
             <Route path="/" element={<Dashboard />} >
               <Route path="openmarket" element={<Openmarket />} />
               <Route path="coopmarket" element={<Coopmarket />} />

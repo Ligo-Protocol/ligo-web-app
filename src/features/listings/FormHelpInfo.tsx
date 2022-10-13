@@ -1,6 +1,5 @@
 export const descriptionInfo = "Description of the offer.";
 export const imageInfo = "Please upload the image of your vehicle before submitting the form.";
-export const sellerInfo = "A decentralized identifier (DID) is a pseudo-anonymous identifier for a person, company, object, etc. Each DID is secured by a private key. Only the private key owner can prove that they own or control their identity.";
 export const areaServedInfo = "The approximate area where the vehicle is available to pickup. Can be used to obfuscate the precise location.";
 export const advanceBookingRequirementInfo = "The amount of time that is required between accepting the offer and the actual usage of the resource or service.";
 

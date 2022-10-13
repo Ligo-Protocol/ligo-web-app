@@ -25,10 +25,10 @@ export function UserSettings({getUserInfo,getChainId,getAccounts,getBalance, get
         setPrivateInfo(await getPrivateKey());
 
         console.log(userdata.email);
-        console.log("Chain data", chaindata);
-        console.log("accountdata", accountdata);
-        console.log("balancedata", balancedata);
-        console.log("privatekey", privatedata);
+        console.log("Chain ID", chaindata);
+        console.log("Account Address", accountdata);
+        console.log("Account Balance", balancedata);
+        console.log("Private key", privatedata);
     }    
     
     return(
