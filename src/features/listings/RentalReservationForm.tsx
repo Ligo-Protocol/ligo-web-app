@@ -14,12 +14,7 @@ import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { DateTimePicker } from '@mui/x-date-pickers/DateTimePicker';
 
 
-import {
-  modelDateInfo, 
-  vehicleConfigurationInfo, 
-} from "./FormHelpInfo";
-
-import styles from "../../assets/css/features/listings/ListForm.module.css"
+import styles from "../../assets/css/features/listings/RentalReservationForm.module.css"
 
 import TextField from '@mui/material/TextField';
 
@@ -48,18 +43,17 @@ const RentalReservationForm = ({accountdata, responseData}) => {
       [name]: value,
     });
   };
- 
+   
   const handleSubmit = async (event) => {
     event.preventDefault();
     console.log("Account address",accountdata);
     console.log(formValues);
     
     //RentalCarReservation Vocab
-    const customerID:string = "did:pkh:"+accountdata.toString();
     const RentalCarReservationDetails = {
       bookingTime: currentdate.format().substring(0,19)+"Z",
       provider: responseData.seller.id,
-      reservationFor: customerID,
+      reservationFor: responseData.id,
       totalPrice: responseData.priceSpecification.price,
       underName: formValues.underName,
       pickupLocation: formValues.pickupLocation,
@@ -81,40 +75,56 @@ const RentalReservationForm = ({accountdata, responseData}) => {
   return (
     <div className={styles.center}>
       <div>
-        <form onSubmit={handleSubmit}>
             <h3>Rental car reservation details: </h3>
-            <div className={styles.inputbox}>
+        <form onSubmit={handleSubmit}>
+            <div className={styles.longtext}>
+                  {responseData?.seller?.id ?
+                  <TextField
+                    id="outlined-read-only-input"
+                    label="Seller ID"
+                    fullWidth
+                    defaultValue={responseData.seller.id}
+                    InputProps={{
+                      readOnly: true,
+                    }}
+                  />: null}
+            </div>
+            <div className={styles.longtext}>
+                  {responseData?.priceSpecification?.price ?
+                  <TextField
+                    id="outlined-read-only-input"
+                    label="Price"
+                    fullWidth
+                    defaultValue={responseData.priceSpecification.price.toString()+responseData.priceSpecification.priceCurrency+"/day"}
+                    InputProps={{
+                      readOnly: true,
+                    }}
+                  />: null}
+            </div>
+            <div className={styles.longtext}>
               <TextField
                 id="underName-input"
                 name="underName"
                 label="Your Name"
+                fullWidth
                 type="text"
                 value={formValues.underName}
                 onChange={handleInputChange}
               />
-              <Tooltip title={modelDateInfo}>
-                <IconButton>
-                  <HelpIcon />
-                </IconButton>
-              </Tooltip>
             </div>
-            <div className={styles.inputbox}>
+            <div className={styles.longtext}>
               <TextField
                 id="pickupLocation-input"
                 name="pickupLocation"
                 label="Pick Up Location"
+                fullWidth
                 type="text"
                 value={formValues.pickupLocation}
                 onChange={handleInputChange}
               />
-              <Tooltip title={vehicleConfigurationInfo}>
-                <IconButton>
-                  <HelpIcon />
-                </IconButton>
-              </Tooltip>
             </div>
-          <div className={styles.inputbox}>
-            <LocalizationProvider dateAdapter={AdapterDayjs}>
+          <div className={styles.longtext}>
+            <LocalizationProvider fullWidth dateAdapter={AdapterDayjs}>
                 <DateTimePicker
                   label="Pick Up Time"
                   value={validPT}
@@ -128,7 +138,7 @@ const RentalReservationForm = ({accountdata, responseData}) => {
                 </IconButton>
               </Tooltip>
           </div>
-          <div className={styles.submit}>
+          <div className={styles.center}>
           <Button variant="contained" color="primary" type="submit">
             Submit
           </Button>

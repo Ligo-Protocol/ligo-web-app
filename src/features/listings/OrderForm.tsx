@@ -10,8 +10,9 @@ import dayjs, { Dayjs } from 'dayjs';
 import FormControl from "@material-ui/core/FormControl";
 import Select from "@material-ui/core/Select";
 import MenuItem from "@material-ui/core/MenuItem";
+import TextField from '@mui/material/TextField';
 
-import styles from "../../assets/css/features/listings/ListForm.module.css"
+import styles from "../../assets/css/features/listings/OrderForm.module.css"
 
 const defaultValues = {
   //Order vocab
@@ -35,6 +36,7 @@ const OrderForm = ({accountdata,responseData}) => {
       [name]: value,
     });
   };
+  const customerID:string = "did:pkh:"+accountdata.toString();
  
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -42,7 +44,6 @@ const OrderForm = ({accountdata,responseData}) => {
     console.log(formValues);
     
     //Order vocab
-    const customerID:string = "did:pkh:"+accountdata.toString();
     const OrderDetails = {
       acceptedOffer: responseData.id,
       customer: customerID,
@@ -56,9 +57,46 @@ const OrderForm = ({accountdata,responseData}) => {
   return (
     <div className={styles.center}>
       <div>
-        <form onSubmit={handleSubmit}>
             <h3>Order details: </h3>
-            <div className={styles.inputbox}>
+        <form onSubmit={handleSubmit}>
+          
+            <div className={styles.longtext}>
+                  {responseData?.id ?
+                  <TextField
+                    id="outlined-read-only-input"
+                    label="Offer ID"
+                    defaultValue={responseData.id}
+                    fullWidth
+                    InputProps={{
+                      readOnly: true,
+                    }}
+                  />: null}
+                </div>
+            <div className={styles.longtext}>
+                  {responseData?.seller?.id ?
+                  <TextField
+                    id="outlined-read-only-input"
+                    label="Seller ID"
+                    fullWidth
+                    defaultValue={responseData.seller.id}
+                    InputProps={{
+                      readOnly: true,
+                    }}
+                  />: null}
+            </div>
+            <div className={styles.longtext}>
+                  <TextField
+                    id="outlined-read-only-input"
+                    label="Your ID/Customer ID"
+                    fullWidth
+                    defaultValue={customerID}
+                    InputProps={{
+                      readOnly: true,
+                    }}
+                  />
+            </div>
+            <div className={styles.longtext}>
+              <label>Payment Method</label>
               <FormControl>
                 <Select
                   name="paymentMethod"
@@ -83,7 +121,7 @@ const OrderForm = ({accountdata,responseData}) => {
                 </IconButton>
               </Tooltip>
             </div>
-          <div className={styles.submit}>
+          <div className={styles.center}>
           <Button variant="contained" color="primary" type="submit">
             Submit
           </Button>
