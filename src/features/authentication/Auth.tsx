@@ -23,7 +23,7 @@ import { Statistics } from "../dashboard/Statistics";
 import { FileDisputes } from "../disputes/FileDisputes";
 import {Dashboard} from "../dashboard/Dashboard";
 import OfferForm from "../listings/OfferForm";
-import { SingleOfferView } from "../listings/SingleOfferView";
+import OrderStepper from "../listings/OrderStepper";
 
 const clientId: any = process.env.REACT_APP_CLIENT_ID; // get from https://dashboard.web3auth.io
 
@@ -158,8 +158,8 @@ function Auth() {
         <ResponsiveAppBar logged={logout} isLogged={isLogged}/>
         </div>
           <Routes>
-            <Route path="fillform" element={<OfferForm accountdata={accountdata}/>} />
-            <Route path="/:offerid" element={<SingleOfferView/>} />
+            <Route path="/:offerid" element={<OrderStepper accountdata={accountdata}/>} />
+            <Route path="offerform" element={<OfferForm accountdata={accountdata}/>} />
             <Route path="/" element={<Dashboard />} >
               <Route path="openmarket" element={<Openmarket />} />
               <Route path="coopmarket" element={<Coopmarket />} />
