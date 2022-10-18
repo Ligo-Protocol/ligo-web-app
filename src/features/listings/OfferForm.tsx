@@ -42,9 +42,6 @@ import TextField from '@mui/material/TextField';
 // import { Offer, UnitPriceSpecification } from "../../ts-ligo-vocab/src";
 // import HelpIcon Information
 
-const VT = new Date().toISOString().substring(0, 10);
-const VF = new Date().toISOString().substring(0, 10);
-
 const defaultValues = {
   //Offer vocab
   description: "",
@@ -64,8 +61,8 @@ const defaultValues = {
   //PriceSpecification vocab
   price: 0,
   priceCurrency: "",
-  validFrom: VF,
-  validThrough: VT,
+  validFrom: "2025-08-18",
+  validThrough: "2025-08-18",
   eligibleQuantity: "",
 
   // //LigoAgreementState
@@ -99,7 +96,6 @@ const OfferForm = ({accountdata}) => {
   const handleSubmit = async (event) => {
     event.preventDefault();
     console.log("Account address",accountdata);
-    console.log("VT VF", VT, VF)
     console.log(formValues);
     // Creating offer from the form input
 
@@ -125,8 +121,8 @@ const OfferForm = ({accountdata}) => {
     const pricedetails = {
       price: formValues.price,
       priceCurrency: formValues.priceCurrency,
-      validFrom: VF,
-      validThrough: VT
+      validFrom: validF.format('YYYY-MM-DD'),
+      validThrough: validT.format('YYYY-MM-DD')
     }
 
 
@@ -379,8 +375,6 @@ const OfferForm = ({accountdata}) => {
               </Tooltip>
             </div>
             <div className={styles.inputbox}>
-              
-
               <FormControl>
                 <Select
                   name="priceCurrency"
