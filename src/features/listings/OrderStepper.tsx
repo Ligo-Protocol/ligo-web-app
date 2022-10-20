@@ -6,8 +6,6 @@ import StepButton from '@mui/material/StepButton';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import { SingleOfferView } from './SingleOfferView';
-import RentalReservationForm from './RentalReservationForm';
-import OrderForm from './OrderForm';
 import Paper from '@mui/material/Paper';
 
 // Offer based imports
@@ -20,6 +18,7 @@ import { useEffect,useState} from "react";
 
 import styles from "../../assets/css/features/listings/OrderStepper.module.css"
 import { useParams } from 'react-router-dom';
+import AgreementForm from './AgreementForm';
 
 const steps =['View Offer', 'Book Reservation', 'Create Order'];
 
@@ -210,8 +209,8 @@ export default function OrderStepper({accountdata}) {
               <React.Fragment>
                 <Typography sx={{ mt: 2, mb: 1, py: 1 }}>
                   {activeStep===0? <SingleOfferView responseData={responseData} /> :null}
-                  {activeStep===1? <RentalReservationForm accountdata={accountdata} responseData={responseData}/> : null}
-                  {activeStep===2? <OrderForm accountdata={accountdata} responseData={responseData}/> : null}
+                  {activeStep===1? <AgreementForm accountdata={accountdata} responseData={responseData}/> : null}
+                  {activeStep===2? "Will See" : null}
 
                 </Typography>
                 <Box sx={{ display: 'flex', flexDirection: 'row', pt: 2 }}>

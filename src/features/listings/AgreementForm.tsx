@@ -5,6 +5,9 @@ import HelpIcon from '@mui/icons-material/Help';
 import IconButton from '@mui/material/IconButton';
 import Tooltip from '@mui/material/Tooltip';
 
+import FormControl from "@material-ui/core/FormControl";
+import Select from "@material-ui/core/Select";
+import MenuItem from "@material-ui/core/MenuItem";
 
 import dayjs, { Dayjs } from 'dayjs';
 import utc from 'dayjs/plugin/utc';
@@ -14,7 +17,7 @@ import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { DateTimePicker } from '@mui/x-date-pickers/DateTimePicker';
 
 
-import styles from "../../assets/css/features/listings/RentalReservationForm.module.css"
+import styles from "../../assets/css/features/listings/AgreementForm.module.css";
 
 import TextField from '@mui/material/TextField';
 
@@ -26,10 +29,18 @@ const defaultValues = {
   totalPrice: 0,
   underName: "",
   pickupLocation: "",
-  pickupTime: ""
+  pickupTime: "",
+   //Order vocab
+   acceptedOffer: "",
+   customer: "",
+   seller: "",
+   orderDate: "",
+   paymentMethod: "",
+   paymentMethodId: "",
+   paymentUrl: "",
 };
 
-const RentalReservationForm = ({accountdata, responseData}) => {
+const AgreementForm = ({accountdata, responseData}) => {
   // Form variable and functions
   const [formValues, setFormValues] = useState(defaultValues);
   dayjs.extend(utc);
@@ -43,6 +54,8 @@ const RentalReservationForm = ({accountdata, responseData}) => {
       [name]: value,
     });
   };
+  const customerID:string = "did:pkh:"+accountdata.toString();
+
    
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -60,6 +73,23 @@ const RentalReservationForm = ({accountdata, responseData}) => {
       pickupTime: validPT.format().substring(0,19)+"Z"
     }
     console.log("Car Details",RentalCarReservationDetails);
+
+    //Order vocab
+    const OrderDetails = {
+        acceptedOffer: responseData.id,
+        customer: customerID,
+        seller: responseData.seller.id,
+        orderDate: currentdate.format().substring(0, 19)+"Z",
+        paymentMethod: formValues.paymentMethod
+      }
+      console.log("Order Details",OrderDetails);
+
+    const AgreementDetails = {
+      order : OrderDetails,
+      reservation: RentalCarReservationDetails
+    }
+    console.log("Agreement Details",AgreementDetails);
+
   };
 
   // Pickup Time
@@ -138,6 +168,69 @@ const RentalReservationForm = ({accountdata, responseData}) => {
                 </IconButton>
               </Tooltip>
           </div>
+          <h3>Order Details :</h3>
+          
+          <div className={styles.longtext}>
+                  {responseData?.id ?
+                  <TextField
+                    id="outlined-read-only-input"
+                    label="Offer ID"
+                    defaultValue={responseData.id}
+                    fullWidth
+                    InputProps={{
+                      readOnly: true,
+                    }}
+                  />: null}
+                </div>
+            <div className={styles.longtext}>
+                  {responseData?.seller?.id ?
+                  <TextField
+                    id="outlined-read-only-input"
+                    label="Seller ID"
+                    fullWidth
+                    defaultValue={responseData.seller.id}
+                    InputProps={{
+                      readOnly: true,
+                    }}
+                  />: null}
+            </div>
+            <div className={styles.longtext}>
+                  <TextField
+                    id="outlined-read-only-input"
+                    label="Your ID/Customer ID"
+                    fullWidth
+                    defaultValue={customerID}
+                    InputProps={{
+                      readOnly: true,
+                    }}
+                  />
+            </div>
+            <div className={styles.longtext}>
+              <label>Payment Method</label>
+              <FormControl>
+                <Select
+                  name="paymentMethod"
+                  label="Price Currency"
+                  value={formValues.paymentMethod}
+                  onChange={handleInputChange}
+                >
+                  <MenuItem key="USD" value="USD">
+                    USD
+                  </MenuItem>
+                  <MenuItem key="BTC" value="BTC">
+                    BTC
+                  </MenuItem>
+                  <MenuItem key="ETH" value="ETH">
+                    ETH
+                  </MenuItem>
+                </Select>
+              </FormControl>
+              <Tooltip title="Your preferred payment method">
+                <IconButton>
+                  <HelpIcon />
+                </IconButton>
+              </Tooltip>
+            </div>
           <div className={styles.center}>
           <Button variant="contained" color="primary" type="submit">
             Submit
@@ -148,4 +241,4 @@ const RentalReservationForm = ({accountdata, responseData}) => {
     </div>
   );
 };
-export default RentalReservationForm;
+export default AgreementForm;
