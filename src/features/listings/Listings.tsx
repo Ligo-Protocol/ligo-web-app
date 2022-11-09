@@ -95,7 +95,7 @@ export function Listings() {
         `);
       console.log(
         "fetch Result--->>>>>>>>>>",
-        fetchResult.data.offerIndex.edges
+        fetchResult
       );
       setResponseData(fetchResult.data.offerIndex.edges);
     };

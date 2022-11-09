@@ -22,7 +22,7 @@ import AgreementForm from './AgreementForm';
 
 const steps =['View Offer', 'Book Reservation', 'Create Order'];
 
-export default function OrderStepper({accountdata}) {
+export default function OrderStepper({accountdata,client}) {
   // Get Offer ID
   let { offerid } = useParams();
 
@@ -209,7 +209,7 @@ export default function OrderStepper({accountdata}) {
               <React.Fragment>
                 <Typography sx={{ mt: 2, mb: 1, py: 1 }}>
                   {activeStep===0? <SingleOfferView responseData={responseData} /> :null}
-                  {activeStep===1? <AgreementForm accountdata={accountdata} responseData={responseData}/> : null}
+                  {activeStep===1? <AgreementForm accountdata={accountdata} responseData={responseData} client={client}/> : null}
                   {activeStep===2? "Will See" : null}
 
                 </Typography>

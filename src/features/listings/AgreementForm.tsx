@@ -16,10 +16,13 @@ import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { DateTimePicker } from '@mui/x-date-pickers/DateTimePicker';
 
+import { LigoAgreement } from "@js-ligo/vocab";
+import { AccountId } from "caip";
 
 import styles from "../../assets/css/features/listings/AgreementForm.module.css";
-
 import TextField from '@mui/material/TextField';
+
+
 
 const defaultValues = {
   //RentalCarReservation vocab
@@ -40,7 +43,8 @@ const defaultValues = {
    paymentUrl: "",
 };
 
-const AgreementForm = ({accountdata, responseData}) => {
+
+const AgreementForm = ({accountdata, responseData, client}) => {
   // Form variable and functions
   const [formValues, setFormValues] = useState(defaultValues);
   dayjs.extend(utc);
@@ -80,16 +84,28 @@ const AgreementForm = ({accountdata, responseData}) => {
         customer: customerID,
         seller: responseData.seller.id,
         orderDate: currentdate.format().substring(0, 19)+"Z",
-        paymentMethod: formValues.paymentMethod
+        //paymentMethod: formValues.paymentMethod
       }
       console.log("Order Details",OrderDetails);
 
-    const AgreementDetails = {
+    const AgreementDetails:LigoAgreement = {
       order : OrderDetails,
       reservation: RentalCarReservationDetails
     }
-    console.log("Agreement Details",AgreementDetails);
+    const SellerAddress = OrderDetails.seller.toString().substring(8)
+    console.log("Seller",SellerAddress)
+    console.log("LigoAgreement",AgreementDetails);
+    localStorage.clear();
+    const jws = await client.signAgreement(AgreementDetails);
+    const recipent = new AccountId({
+      address: SellerAddress,
+      chainId: `eip155:1`,
+    })
+    await client.sendAgreement(jws, recipent)
+     
 
+
+  
   };
 
   // Pickup Time
@@ -242,3 +258,6 @@ const AgreementForm = ({accountdata, responseData}) => {
   );
 };
 export default AgreementForm;
+
+
+
