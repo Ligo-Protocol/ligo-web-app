@@ -33,6 +33,7 @@ import { EventEmitter } from "events";
 import { fromString, toString } from "uint8arrays";
 import LitJsSdk from "@lit-protocol/sdk-browser";
 import {ethers} from 'ethers';
+import { Chatbox } from "../chatbox/Chatbox";
 
 const clientId: any = process.env.REACT_APP_CLIENT_ID; // get from https://dashboard.web3auth.io
 
@@ -239,6 +240,7 @@ async function buildAndConnectClient(_wallet?: EthereumWallet) {
         <ResponsiveAppBar logged={logout} isLogged={isLogged}/>
         </div>
           <Routes>
+            <Route path="chat" element={<Chatbox />} />
             <Route path="/:offerid" element={<OrderStepper accountdata={accountdata} client={client}/>} />
             <Route path="offerform" element={<OfferForm accountdata={accountdata}/>} />
             <Route path="/" element={<Dashboard />} >

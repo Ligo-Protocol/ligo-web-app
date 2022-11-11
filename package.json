@@ -47,6 +47,7 @@
     "key-did-resolver": "^2.0.6",
     "material-ui-search-bar": "^1.0.0",
     "multiformats": "^10.0.2",
+    "popup-chat-react": "^1.0.5",
     "react": "^18.2.0",
     "react-bootstrap": "^2.5.0",
     "react-dom": "^18.2.0",
