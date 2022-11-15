@@ -19,16 +19,19 @@ import { useEffect,useState} from "react";
 import styles from "../../assets/css/features/listings/OrderStepper.module.css"
 import { useParams } from 'react-router-dom';
 import AgreementForm from './AgreementForm';
+import { Chatbox } from '../chatbox/Chatbox';
 
 const steps =['View Offer', 'Book Reservation', 'Create Order'];
 
-export default function OrderStepper({accountdata,client}) {
+export default function OrderStepper({accountdata,client,xmtp}) {
   // Get Offer ID
   let { offerid } = useParams();
 
   // Get Offer details 
 
     const [responseData, setResponseData] = useState<any>([]);
+    const [conversation, setConversation] = useState<any>([]);
+
     console.log("Passed offerId", offerid)
     // Connect, Generate Seed and Authenticate
     const compose = new ComposeClient({
@@ -101,13 +104,23 @@ export default function OrderStepper({accountdata,client}) {
             );
           
             console.log("Selected Offer ID", offerid);
-            console.log("Single Offer details:", fetchResult1);
             setResponseData(await fetchResult1.data.node);
+            const newData:any= fetchResult1.data.node
+            const SellerAddress = fetchResult1.data.node? newData.seller.id.toString().substring(8):null
+            console.log(SellerAddress)
+            const conversation = await xmtp.conversations.newConversation(
+              SellerAddress.toString()
+            )
+            setConversation(conversation)
+            const tester = await conversation.streamMessages()
+            console.log(tester)
 
     };
       Resultprocessing(did).catch((error: any) => {
         console.log(error);
-      });
+      }
+      
+      );
     // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
@@ -245,6 +258,7 @@ export default function OrderStepper({accountdata,client}) {
         </Box>
         </Paper>
         </Box>
+        <Chatbox conversation={conversation} xmtp={xmtp}/>
       </div>
   );
 }

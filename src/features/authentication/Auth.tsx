@@ -33,7 +33,7 @@ import { EventEmitter } from "events";
 import { fromString, toString } from "uint8arrays";
 import LitJsSdk from "@lit-protocol/sdk-browser";
 import {ethers} from 'ethers';
-import { Chatbox } from "../chatbox/Chatbox";
+import { Client as XMTPClient } from '@xmtp/xmtp-js'
 
 const clientId: any = process.env.REACT_APP_CLIENT_ID; // get from https://dashboard.web3auth.io
 
@@ -78,6 +78,7 @@ function Auth() {
   const [ isLogged, setIsLogged ] = useState<boolean>(false);
   const [accountdata, setAccInfo] = useState<any>();
   const [client, setLigoClient] = useState<LigoClient | null>(null);
+  const [xmtp, setXMTPClient] = useState<XMTPClient | null>(null);
 
   useEffect(() => {
     const init = async () => {
@@ -131,9 +132,12 @@ function Auth() {
     const PK ="0x"+await rpc.getPrivateKey();
     console.log(PK) 
     const wallet = await new ethers.Wallet(PK);
+    const xmtp = await XMTPClient.create(wallet)
+    console.log("XMTP", xmtp)
+    await setXMTPClient(xmtp);
     localStorage.clear();
     const { client } = await buildAndConnectClient(wallet)
-    setLigoClient(client)
+    await setLigoClient(client)
     console.log(client)
     localStorage.clear();
   };
@@ -240,8 +244,7 @@ async function buildAndConnectClient(_wallet?: EthereumWallet) {
         <ResponsiveAppBar logged={logout} isLogged={isLogged}/>
         </div>
           <Routes>
-            <Route path="chat" element={<Chatbox />} />
-            <Route path="/:offerid" element={<OrderStepper accountdata={accountdata} client={client}/>} />
+            <Route path="/:offerid" element={<OrderStepper accountdata={accountdata} client={client} xmtp={xmtp}/>} />
             <Route path="offerform" element={<OfferForm accountdata={accountdata}/>} />
             <Route path="/" element={<Dashboard />} >
               <Route path="openmarket" element={<Openmarket />} />

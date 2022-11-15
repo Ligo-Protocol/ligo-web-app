@@ -1,14 +1,10 @@
-import React, { useState } from 'react';
-import { render } from 'react-dom';
+import React, {  useState } from 'react';
 import { Launcher } from 'popup-chat-react';
 import messageHistory from './MessageHistory';
-import TestArea from './TestArea';
-import Header from './Header';
-import Footer from './Footer';
-import monsterImgUrl from '../../assets/image/automobile-gd3b510a1c_1920.jpg';
 //import './../assets/styles';
 
-export function Chatbox() {
+export function Chatbox({conversation,xmtp}) {
+   
   const [state, setState] = useState({
     messageList: messageHistory,
     newMessagesCount: 0,
@@ -16,7 +12,8 @@ export function Chatbox() {
     fileUpload: false,
   });
 
-  function onMessageWasSent(message) {
+  async function onMessageWasSent(message) {
+    await conversation.send(message.data.text)
     setState(state => ({
       ...state,
       messageList: [...state.messageList, message]
@@ -41,6 +38,7 @@ export function Chatbox() {
     }));
   }
 
+ 
   function sendMessage(text) {
     if (text.length > 0) {
       const newMessagesCount = state.isOpen ? state.newMessagesCount : state.newMessagesCount + 1;
@@ -60,25 +58,27 @@ export function Chatbox() {
     }
   }
 
-  function onClick() {
+  async function onClick() {
+    
     setState(state => ({
       ...state,
       isOpen: !state.isOpen,
       newMessagesCount: 0
     }));
+    for await (const msg of await conversation.streamMessages()) {
+      if (msg.senderAddress === xmtp.address) {
+        // This message was sent from me
+        continue
+      }
+      sendMessage(msg.content)
+    }
   }
 
   return (
     <div>
-      <Header />
-
-      <TestArea
-        onMessage={sendMessage}
-      />
-
       <Launcher
         agentProfile={{
-          teamName: 'popup-chat-react',
+          teamName: 'Host/Renter Coversation Chat',
           imageUrl: 'https://a.slack-edge.com/66f9/img/avatars-teams/ava_0001-34.png'
         }}
         onMessageWasSent={onMessageWasSent}
@@ -92,15 +92,12 @@ export function Chatbox() {
         pinMessage={{
         	id: 123,
           imageUrl: 'https://a.slack-edge.com/66f9/img/avatars-teams/ava_0001-34.png',
-          title: 'It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout.',
-          text: 'It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout.'
+          title: 'Note:',
+          text: 'The Host/Renter will be notified of your message.'
         }}
         onPinMessage={value => console.log(value)}
         placeholder='placeholder'
       />
-
-      <img className="demo-monster-img" src={monsterImgUrl} />
-      <Footer />
     </div>
   );
 }
