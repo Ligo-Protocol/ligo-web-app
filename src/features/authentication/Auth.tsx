@@ -24,6 +24,8 @@ import { FileDisputes } from "../disputes/FileDisputes";
 import {Dashboard} from "../dashboard/Dashboard";
 import OfferForm from "../listings/OfferForm";
 import OrderStepper from "../listings/OrderStepper";
+import {TransakExchange} from "../payment/TransakExchange";
+import {WyrePayment} from "../payment/WyrePayment";
 
 import { LigoClient } from "@js-ligo/client";
 import { CustomStorageProvider } from "../listings/CustomStorage"; 
@@ -271,6 +273,8 @@ async function buildAndConnectClient(_wallet?: EthereumWallet) {
       <div>
       <BrowserRouter>
         <Routes>
+        <Route path="/exchange" element={<TransakExchange/>} />
+        <Route path="/pay" element={<WyrePayment/>} />
           <Route path="/" element={<Home logged={login}/>} />
           <Route path="*" element={<PageNotFound />} />
         </Routes>
