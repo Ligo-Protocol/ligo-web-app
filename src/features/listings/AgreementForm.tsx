@@ -17,7 +17,6 @@ import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { DateTimePicker } from '@mui/x-date-pickers/DateTimePicker';
 
 import { LigoAgreement } from "@js-ligo/vocab";
-import { AccountId } from "caip";
 
 import styles from "../../assets/css/features/listings/AgreementForm.module.css";
 import TextField from '@mui/material/TextField';
@@ -44,7 +43,7 @@ const defaultValues = {
 };
 
 
-const AgreementForm = ({accountdata, responseData, client}) => {
+const AgreementForm = ({accountdata, responseData}) => {
   // Form variable and functions
   const [formValues, setFormValues] = useState(defaultValues);
   dayjs.extend(utc);
@@ -95,17 +94,6 @@ const AgreementForm = ({accountdata, responseData, client}) => {
     const SellerAddress = OrderDetails.seller.toString().substring(8)
     console.log("Seller",SellerAddress)
     console.log("LigoAgreement",AgreementDetails);
-    localStorage.clear();
-    const jws = await client.signAgreement(AgreementDetails);
-    const recipent = new AccountId({
-      address: SellerAddress,
-      chainId: `eip155:1`,
-    })
-    await client.sendAgreement(jws, recipent)
-     
-
-
-  
   };
 
   // Pickup Time

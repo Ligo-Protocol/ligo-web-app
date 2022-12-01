@@ -23,7 +23,7 @@ import { Chatbox } from '../chatbox/Chatbox';
 
 const steps =['View Offer', 'Book Reservation', 'Create Order'];
 
-export default function OrderStepper({accountdata,client,xmtp}) {
+export default function OrderStepper({accountdata}) {
   // Get Offer ID
   let { offerid } = useParams();
 
@@ -108,9 +108,6 @@ export default function OrderStepper({accountdata,client,xmtp}) {
             const newData:any= fetchResult1.data.node
             const SellerAddress = fetchResult1.data.node? newData.seller.id.toString().substring(8):null
             console.log(SellerAddress)
-            const conversation = await xmtp.conversations.newConversation(
-              SellerAddress.toString()
-            )
             setConversation(conversation)
             const tester = await conversation.streamMessages()
             console.log(tester)
@@ -222,7 +219,7 @@ export default function OrderStepper({accountdata,client,xmtp}) {
               <React.Fragment>
                 <Typography sx={{ mt: 2, mb: 1, py: 1 }}>
                   {activeStep===0? <SingleOfferView responseData={responseData} /> :null}
-                  {activeStep===1? <AgreementForm accountdata={accountdata} responseData={responseData} client={client}/> : null}
+                  {activeStep===1? <AgreementForm accountdata={accountdata} responseData={responseData}/> : null}
                   {activeStep===2? "Will See" : null}
 
                 </Typography>
@@ -258,7 +255,7 @@ export default function OrderStepper({accountdata,client,xmtp}) {
         </Box>
         </Paper>
         </Box>
-        <Chatbox conversation={conversation} xmtp={xmtp}/>
+        <Chatbox conversation={conversation}/>
       </div>
   );
 }

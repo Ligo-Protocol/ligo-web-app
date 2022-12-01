@@ -3,7 +3,7 @@ import { Launcher } from 'popup-chat-react';
 import messageHistory from './MessageHistory';
 //import './../assets/styles';
 
-export function Chatbox({conversation,xmtp}) {
+export function Chatbox({conversation}) {
    
   const [state, setState] = useState({
     messageList: messageHistory,
@@ -39,24 +39,24 @@ export function Chatbox({conversation,xmtp}) {
   }
 
  
-  function sendMessage(text) {
-    if (text.length > 0) {
-      const newMessagesCount = state.isOpen ? state.newMessagesCount : state.newMessagesCount + 1;
+  // function sendMessage(text) {
+  //   if (text.length > 0) {
+  //     const newMessagesCount = state.isOpen ? state.newMessagesCount : state.newMessagesCount + 1;
 
-      setState(state => ({
-        ...state,
-        newMessagesCount: newMessagesCount,
-        messageList: [
-          ...state.messageList,
-          {
-            author: 'them',
-            type: 'text',
-            data: { text }
-          }
-        ]
-      }));
-    }
-  }
+  //     setState(state => ({
+  //       ...state,
+  //       newMessagesCount: newMessagesCount,
+  //       messageList: [
+  //         ...state.messageList,
+  //         {
+  //           author: 'them',
+  //           type: 'text',
+  //           data: { text }
+  //         }
+  //       ]
+  //     }));
+  //   }
+  // }
 
   async function onClick() {
     
@@ -65,13 +65,6 @@ export function Chatbox({conversation,xmtp}) {
       isOpen: !state.isOpen,
       newMessagesCount: 0
     }));
-    for await (const msg of await conversation.streamMessages()) {
-      if (msg.senderAddress === xmtp.address) {
-        // This message was sent from me
-        continue
-      }
-      sendMessage(msg.content)
-    }
   }
 
   return (
