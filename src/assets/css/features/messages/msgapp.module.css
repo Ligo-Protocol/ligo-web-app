@@ -1,0 +1,126 @@
+body {
+    margin: 0px;
+    height: 100%;
+    width:100%;
+  }
+
+.app {
+    /* height:100%;
+    width: 100%; */
+    /* border-style: solid; */
+    /* padding: 10px; */
+    padding: 50px;
+    display: flex;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.outlet {
+     width: 80%;
+
+     /*    float: right;
+    border-style: solid;
+    padding: 10px; */
+    
+}
+
+.conversationoutlet{
+  width: 20%;
+}
+
+.conversation {
+    height: 500px;
+    margin: 0 0 20px;
+    overflow-y: scroll;
+    padding: 0 10px 0 0;
+    display: flex;
+    /*
+    float: left;
+    height: 100%;
+    border-style: solid;
+    padding: 10px; */
+
+}
+
+.addconvo{
+  display: flex;
+  justify-content: space-between;
+}
+
+.addtext{
+  width:60%;
+  margin: 20px 10px; 
+}
+
+.addicon{
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  margin: 10px 10px; 
+}
+
+
+.msginput {
+    /* width: 100%;
+    height: 50px;
+    float:bottom;
+    border-style: solid;
+    padding: 10px; */
+}
+
+.msgstream {
+    /* width: 100%;
+    height: 100%;
+    float:top;
+    border-style: solid;
+    padding: 10px; */
+    height: 500px;
+    margin: 0 0 20px;
+    overflow-y: scroll;
+    padding:  0 10px 0 0;
+    display: flex;
+    flex-direction: column;
+}
+
+/* width */
+.msgstream::-webkit-scrollbar {
+    width: 5px;
+  }
+  
+  /* Track */
+  .msgstream::-webkit-scrollbar-track {
+    /* box-shadow: inset 0 0 5px grey;  */
+    border-radius: 10px;
+    background: rgb(231, 231, 231);
+  }
+   
+  /* Handle */
+  .msgstream::-webkit-scrollbar-thumb {
+    background: rgb(153, 153, 153); 
+    border-radius: 10px;
+  }
+  
+  /* Handle on hover */
+  /* .msgstream::-webkit-scrollbar-thumb:hover {
+    background: #b30000; 
+  } */
+
+.receive{
+    margin: 10px 0; 
+}
+
+.send{
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    margin: 10px 0; 
+}
+
+.messageBox{
+    display: flex;   
+    justify-content: space-between;
+}
+
+.textBoxSS {
+    width: 70%
+}

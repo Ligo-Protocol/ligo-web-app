@@ -44,60 +44,65 @@ export function Listings() {
 
   useEffect(() => {
     const Resultprocessing = async (did) => {
-      await did.authenticate();
-      compose.setDID(did);
-      console.log("did.authenticated = ", did.authenticated);
+      try{
+        await did.authenticate();
+        compose.setDID(did);
+        console.log("did.authenticated = ", did.authenticated);
 
-      // Get current viewer
-      const viewerResult = await compose.executeQuery(`
-          query {
-            viewer {
-              id
+        // Get current viewer
+        const viewerResult = await compose.executeQuery(`
+            query {
+              viewer {
+                id
+              }
             }
-          }
-        `);
-      console.log("viewerResult", viewerResult);
+          `);
+        console.log("viewerResult", viewerResult);
 
-      // Fetch offers
-      const fetchResult: any = await compose.executeQuery(`
-          query {
-            offerIndex(last: 20) {
-              edges {
-                node {
-                  id
-                  seller {
+        // Fetch offers
+        const fetchResult: any = await compose.executeQuery(`
+            query {
+              offerIndex(last: 20) {
+                edges {
+                  node {
                     id
-                  }
-                  description
-                  image
-                  itemOffered {
-                    vehicleIdentificationNumber
-                    modelDate
-                    brand {
-                      name
+                    seller {
+                      id
                     }
-                  }
-                  areaServed {
-                    postalCode
-                  }
-                  priceSpecification {
-                    price
-                    priceCurrency
-                  }
-                  advanceBookingRequirement {
-                    value
-                    unitCode
+                    description
+                    image
+                    itemOffered {
+                      vehicleIdentificationNumber
+                      modelDate
+                      brand {
+                        name
+                      }
+                    }
+                    areaServed {
+                      postalCode
+                    }
+                    priceSpecification {
+                      price
+                      priceCurrency
+                    }
+                    advanceBookingRequirement {
+                      value
+                      unitCode
+                    }
                   }
                 }
               }
             }
-          }
-        `);
-      console.log(
-        "fetch Result--->>>>>>>>>>",
-        fetchResult
-      );
-      setResponseData(fetchResult.data.offerIndex.edges);
+          `);
+        console.log(
+          "fetch Result--->>>>>>>>>>",
+          fetchResult
+        );
+        setResponseData(fetchResult.data.offerIndex.edges);
+      }
+      catch(error){
+        console.log("Ligo web app failed to fetch data from composeDB. Check the ceramic node API health.",error);
+      }
     };
     Resultprocessing(did).catch((error: any) => {
       console.log(error);

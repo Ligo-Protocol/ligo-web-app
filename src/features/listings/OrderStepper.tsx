@@ -31,15 +31,12 @@ export default function OrderStepper({accountdata}) {
 
     const [responseData, setResponseData] = useState<any>([]);
     const [conversation, setConversation] = useState<any>([]);
-
-    console.log("Passed offerId", offerid)
     // Connect, Generate Seed and Authenticate
     const compose = new ComposeClient({
       ceramic: "https://ceramic-clay.oort.codyhatfield.me",
       definition: definition as any,
     });
     // Generate seed
-    const txt = new TextEncoder();
     function rng() {
       let uID = "";
       let length = 32;
@@ -49,69 +46,64 @@ export default function OrderStepper({accountdata}) {
       }
       return uID;
     }
-    const hex = rng();
-    const seed = txt.encode(hex);
+    const seed = new TextEncoder().encode(rng());
 
-    console.log(seed);
     const DIDprovider = new Ed25519Provider(seed);
     const did = new DID({ provider: DIDprovider, resolver: getResolver() });
 
     useEffect(() => {
       const Resultprocessing = async (did) => {
-        await did.authenticate();
-        compose.setDID(did);
-        console.log("did.authenticated = ", did.authenticated);
-        const fetchResult1 = await compose.executeQuery(
-            `
-              query($nodeid: ID!) {
-                node(id: $nodeid) {
-                  id
-                  ... on Offer {
-                    seller {
-                        id
-                      }
-                      description
-                      image
-                      itemOffered {
-                        vehicleIdentificationNumber
-                        modelDate
-                        brand {
-                          name
+        try{
+          await did.authenticate();
+          compose.setDID(did);
+          console.log("did.authenticated = ", did.authenticated);
+          const fetchResult1 = await compose.executeQuery(
+              `
+                query($nodeid: ID!) {
+                  node(id: $nodeid) {
+                    id
+                    ... on Offer {
+                      seller {
+                          id
                         }
-                        manufacturer {
-                          name
+                        description
+                        image
+                        itemOffered {
+                          vehicleIdentificationNumber
+                          modelDate
+                          brand {
+                            name
+                          }
+                          manufacturer {
+                            name
+                          }
+                          model
+                          vehicleConfiguration
                         }
-                        model
-                        vehicleConfiguration
-                      }
-                      areaServed {
-                        postalCode
-                      }
-                      priceSpecification {
-                        price
-                        priceCurrency
-                        validFrom
-                        validThrough
-                      }
-                      advanceBookingRequirement {
-                        value
-                      }
+                        areaServed {
+                          postalCode
+                        }
+                        priceSpecification {
+                          price
+                          priceCurrency
+                          validFrom
+                          validThrough
+                        }
+                        advanceBookingRequirement {
+                          value
+                        }
+                    }
                   }
                 }
-              }
-            `,
-            {nodeid:offerid}
-            );
-          
-            console.log("Selected Offer ID", offerid);
-            setResponseData(await fetchResult1.data.node);
-            const newData:any= fetchResult1.data.node
-            const SellerAddress = fetchResult1.data.node? newData.seller.id.toString().substring(8):null
-            console.log(SellerAddress)
-            setConversation(conversation)
-            const tester = await conversation.streamMessages()
-            console.log(tester)
-
+              `,
+              {nodeid:offerid}
+              );
+              setResponseData(await fetchResult1.data.node);
+              setConversation(conversation)
+            }
+            catch(error){
+              console.log("Ligo web app failed to get Offer details.",error)
+            }
     };
       Resultprocessing(did).catch((error: any) => {
         console.log(error);

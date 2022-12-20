@@ -161,22 +161,25 @@ const OfferForm = ({accountdata}) => {
   }
 
   async function fileUploadHandler(event: any) {
-    const token = process.env.REACT_APP_WEB3STORAGE_TOKEN;
-    console.log("THE TOKEN ----------->>>>", token);
-    if (!token) {
-      return console.error(
-        "A token is needed. You can create one on https://web3.storage"
-      );
-    }
+    try{
+      const token = process.env.REACT_APP_WEB3STORAGE_TOKEN;
+      console.log("THE TOKEN ----------->>>>", token);
+      if (!token) {
+        return console.error(
+          "A token is needed. You can create one on https://web3.storage"
+        );
+      }
 
-    const storage = new Web3Storage({ token });
-    const cid = await storage.put([newFile], {
-      name: "image",
-    });
-    setimageCid(cid);
-    console.log("IMAGE CID ------------->>>", cid);
-
-
+      const storage = new Web3Storage({ token });
+      const cid = await storage.put([newFile], {
+        name: "image",
+      });
+      setimageCid(cid);
+      console.log("IMAGE CID ------------->>>", cid);
+  }
+    catch(error){
+      console.log("Ligo web app failed to store and retried web3 storage CID.",error);
+  }
   }
 
   const [validF, setValidF] = React.useState<Dayjs | null>(

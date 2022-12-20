@@ -1,12 +1,8 @@
 import styles from "../../assets/css/features/listings/SingleOfferView.module.css"
-
-
 import { TextField } from "@mui/material";
 import { Typography } from "@material-ui/core";
 
 export function SingleOfferView({responseData}){
-
-
     return(
         <>{responseData?
           <>

@@ -10,23 +10,21 @@ import { Home } from "../../pages/Home";
 // import { Listings } from "../listings/Listings";
 
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-
 import { PageNotFound } from "../../pages/PageNotFound";
 import { Openmarket } from "../marketplace/open_market/Open_market";
-import  Coopmarket  from "../marketplace/coop_market/Coop_market";
-import  Privatemarket  from "../marketplace/private_market/Private_market";
+import Coopmarket from "../marketplace/coop_market/Coop_market";
+import Privatemarket from "../marketplace/private_market/Private_market";
 import { ActiveListings } from "../dashboard/ActiveListings";
-import { Messaging } from "../messages/Messaging";
 import { Bookmarks } from "../dashboard/Bookmarks";
 import { UserSettings } from "../dashboard/Settings";
 import { Statistics } from "../dashboard/Statistics";
 import { FileDisputes } from "../disputes/FileDisputes";
-import {Dashboard} from "../dashboard/Dashboard";
+import { Dashboard } from "../dashboard/Dashboard";
 import OfferForm from "../listings/OfferForm";
 import OrderStepper from "../listings/OrderStepper";
-import {TransakExchange} from "../payment/TransakExchange";
-import {WyrePayment} from "../payment/WyrePayment";
-
+import { Client as XMTPClient } from '@xmtp/xmtp-js'
+import { ethers } from 'ethers';
+import { MsgApp } from "../messages/MsgApp";
 
 const clientId: any = process.env.REACT_APP_CLIENT_ID; // get from https://dashboard.web3auth.io
 
@@ -36,8 +34,9 @@ function Auth() {
   const [provider, setProvider] = useState<SafeEventEmitterProvider | null>(
     null
   );
-  const [ isLogged, setIsLogged ] = useState<boolean>(false);
+  const [isLogged, setIsLogged] = useState<boolean>(false);
   const [accountdata, setAccInfo] = useState<any>();
+  const [xmtp, setXMTPClient] = useState<XMTPClient | null>(null);
 
   useEffect(() => {
     const init = async () => {
@@ -46,12 +45,12 @@ function Auth() {
           clientId,
           chainConfig: {
             chainNamespace: CHAIN_NAMESPACES.EIP155,
-            chainId: 
-            "0x1",
+            chainId:
+              "0x1",
             // "0x5",
             rpcTarget:
               "https://mainnet.infura.io/v3/9834efc01c904696a10cb3c37c72727c",
-              // "https://goerli.infura.io/v3/9834efc01c904696a10cb3c37c72727c", 
+            // "https://goerli.infura.io/v3/9834efc01c904696a10cb3c37c72727c",
           },
         });
 
@@ -62,7 +61,7 @@ function Auth() {
           setProvider(web3auth.provider);
         }
 
-        
+
 
       } catch (error) {
         console.error(error);
@@ -79,12 +78,19 @@ function Auth() {
     }
     const web3authProvider = await web3auth.connect();
     setProvider(web3authProvider);
-    setIsLogged(true);
-    console.log("TEST: logged in!");
 
     // For sending accounts info to other pages
     const rpc = new RPC(web3auth.provider);
-    setAccInfo(await rpc.getAccounts());
+    setAccInfo(await new RPC(web3auth.provider).getAccounts());
+
+    //For XMTP
+    try {
+      await setXMTPClient(await XMTPClient.create(await new ethers.Wallet("0x" + await rpc.getPrivateKey())));
+    }
+    catch (error) {
+      console.log("Ligo web app could not get connected to XMTP Client", error);
+    }
+    setIsLogged(true);
   };
 
 
@@ -93,8 +99,7 @@ function Auth() {
       console.log("web3auth not initialized yet");
       return;
     }
-    const user = await web3auth.getUserInfo();
-    return user;
+    return await web3auth.getUserInfo();
   };
 
   const logout = async () => {
@@ -112,16 +117,14 @@ function Auth() {
       console.log("provider not initialized yet");
       return;
     }
-    const rpc = new RPC(provider);
-    return await rpc.getChainId();
+    return await new RPC(provider).getChainId();
   };
   const getAccounts = async () => {
     if (!provider) {
       console.log("provider not initialized yet");
       return;
     }
-    const rpc = new RPC(provider);
-    return await rpc.getAccounts();
+    return await new RPC(provider).getAccounts();
   };
 
   const getBalance = async () => {
@@ -129,48 +132,27 @@ function Auth() {
       console.log("provider not initialized yet");
       return;
     }
-    const rpc = new RPC(provider);
-    return await rpc.getBalance();
+    return await new RPC(provider).getBalance();
   };
-
-  // const sendTransaction = async () => {
-  //   if (!provider) {
-  //     console.log("provider not initialized yet");
-  //     return;
-  //   }
-  //   const rpc = new RPC(provider);
-  //   return await rpc.sendTransaction();
-  // };
-
-  // const signMessage = async () => {
-  //   if (!provider) {
-  //     console.log("provider not initialized yet");
-  //     return;
-  //   }
-  //   const rpc = new RPC(provider);
-  //   return await rpc.signMessage();
-  // };
 
   const getPrivateKey = async () => {
     if (!provider) {
       console.log("provider not initialized yet");
       return;
     }
-    const rpc = new RPC(provider);
-    return await rpc.getPrivateKey();
+    return await new RPC(provider).getPrivateKey();
   };
 
   if (provider) {
     return (
       <>
-
         <BrowserRouter>
-        <div>
-        <ResponsiveAppBar logged={logout} isLogged={isLogged}/>
-        </div>
+          <div>
+            <ResponsiveAppBar logged={logout} isLogged={isLogged} />
+          </div>
           <Routes>
-            <Route path="/:offerid" element={<OrderStepper accountdata={accountdata}/>} />
-            <Route path="offerform" element={<OfferForm accountdata={accountdata}/>} />
+            <Route path="/:offerid" element={<OrderStepper accountdata={accountdata} />} />
+            <Route path="offerform" element={<OfferForm accountdata={accountdata} />} />
             <Route path="/" element={<Dashboard />} >
               <Route path="openmarket" element={<Openmarket />} />
               <Route path="coopmarket" element={<Coopmarket />} />
@@ -178,10 +160,9 @@ function Auth() {
               <Route path="activelistings" element={<ActiveListings />} />
               <Route path="bookmarks" element={<Bookmarks />} />
               <Route path="statistics" element={<Statistics />} />
-              <Route path="messaging" element={<Messaging/>} />
-              <Route path="dispute" element={<FileDisputes />} />
+              <Route path="messaging" element={<MsgApp xmtp={xmtp} />} />
               <Route path="settings" element={<UserSettings getUserInfo={getUserInfo} getChainId={getChainId} getAccounts={getAccounts} getBalance={getBalance} getPrivateKey={getPrivateKey} />} />
-             </Route>
+            </Route>
             <Route path="*" element={<PageNotFound />} />
           </Routes>
         </BrowserRouter>
@@ -191,17 +172,15 @@ function Auth() {
 
   return (
     <><div>
-      <ResponsiveAppBar logged={login} isLogged={isLogged}/>
-      </div>
+      <ResponsiveAppBar logged={login} isLogged={isLogged} />
+    </div>
       <div>
-      <BrowserRouter>
-        <Routes>
-        <Route path="/exchange" element={<TransakExchange/>} />
-        <Route path="/pay" element={<WyrePayment/>} />
-          <Route path="/" element={<Home logged={login}/>} />
-          <Route path="*" element={<PageNotFound />} />
-        </Routes>
-      </BrowserRouter>
+        <BrowserRouter>
+          <Routes>
+            <Route path="/" element={<Home logged={login} />} />
+            <Route path="*" element={<PageNotFound />} />
+          </Routes>
+        </BrowserRouter>
       </div>
     </>
   );

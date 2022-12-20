@@ -3,36 +3,6 @@ import { Ed25519Provider } from "key-did-provider-ed25519";
 import { getResolver } from "key-did-resolver";
 import { ComposeClient } from "@composedb/client";
 import { definition } from "../../__generated__/definition.js";
-// import { Offer } from "../ts-ligo-vocab/src/Offer";
-
-// const offer: Offer = {
-//   description: "This is a sample entry of JSON data for the schema",
-//   image: "https://image.com/img12.img",
-//   itemOffered: {
-//     // modelDate: '01-01-2019',
-//     // vehicleIdentificationNumber: "5YJ3E1EA1KF064316",
-//     // manufacturer: {
-//     //   legalName: "Tesla, Inc.",
-//     // },
-//     // brand: {
-//     //   name: "Tesla",
-//     // },
-//     model: "Model 3",
-//     vehicleConfiguration: "Standard Range Plus",
-//   },
-//   seller: "did:example:hello",
-//   // areaServed: {
-//   //   postalCode: "81111",
-//   // },
-//   priceSpecification: {
-//     price: 1000,
-//     priceCurrency: "USD",
-//   },
-//   // advanceBookingRequirement: {
-//   //   value: 5,
-//   //   unitCode: "HUR",
-//   // },
-// };
 
 const createCeramicDoc = async (offer) => {
   console.log("imported parameter offer", offer);
@@ -60,7 +30,7 @@ const createCeramicDoc = async (offer) => {
   // Authenticate the DID with the provider
   await did.authenticate();
   compose.setDID(did);
-  console.log("DID",did,"did.authenticated = ", did.authenticated);
+  console.log("DID", did, "did.authenticated = ", did.authenticated);
 
   // Get current viewer
   const viewerResult = await compose.executeQuery(`

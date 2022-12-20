@@ -21,3 +21,7 @@
 .sidebutton{
     width:270px;
 }
+
+.dashboardContainer {
+    display: flex;
+}

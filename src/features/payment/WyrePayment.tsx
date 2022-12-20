@@ -2,6 +2,7 @@ import React from 'react';
 
 export function WyrePayment(){
     async function Pay(){
+      try{
         const options = {
             method: 'POST',
             headers: {
@@ -27,6 +28,11 @@ export function WyrePayment(){
             .then(response => response.json())
             .then(response => window.location.href = response?.url)
             .catch(err => console.error(err));
+        }
+        catch(error){
+          console.log("Ligo web app failed to initialize Wyre payment",error)
+        }
+
     }
 
     return(
