@@ -1,13 +1,10 @@
+# CarEth
 
-### `npm install`
+A simple DApp that helps in renting cars directly from the owner using crypto payments.
+Note: We have used ETH as payment for this project
 
-Install dependencies
-
-### `npm start`
-
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
-
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
-
+## Steps to Execute
+- Use the command: "yarn start" and opens the development server
+- Enter "http://localhost:3000/" in the web browser for accessing the DApp
+- All the transactions are done in ETH on Georli Testnet
+- Youtube Link for demo: https://www.youtube.com/watch?v=0dz8W_XSq-k
