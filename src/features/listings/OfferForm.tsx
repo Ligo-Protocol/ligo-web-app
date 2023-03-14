@@ -10,7 +10,7 @@ import IconButton from '@mui/material/IconButton';
 import Tooltip from '@mui/material/Tooltip';
 
 // import { Offer } from "../ts-ligo-vocab/src/Offer";
-import { createCeramicDoc } from "./createCeramicDoc";
+// import { createCeramicDoc } from "./createCeramicDoc";
 
 // imports for uploading images
 import process from "process";
@@ -38,6 +38,7 @@ import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { DateTimePicker } from '@mui/x-date-pickers/DateTimePicker';
 import TextField from '@mui/material/TextField';
+import { transactFluree } from "./transactFluree";
 // import { Car } from "../../ts-ligo-vocab/src/Car";
 // import { Offer, UnitPriceSpecification } from "../../ts-ligo-vocab/src";
 // import HelpIcon Information
@@ -95,8 +96,8 @@ const OfferForm = ({accountdata}) => {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-    console.log("Account address",accountdata);
-    console.log(formValues);
+    // console.log("Account address",accountdata);
+    // console.log(formValues);
     // Creating offer from the form input
 
     //Car vocab
@@ -131,7 +132,7 @@ const OfferForm = ({accountdata}) => {
     const areaServeddata:any = formValues.areaServed;
     const advancedBookingRequirement:any = formValues.advanceBookingRequirement;
     const sellerID:string = "did:pkh:"+accountdata.toString();
-    console.log("SellerID",sellerID)
+    // console.log("SellerID",sellerID)
     const listoffer = {
       description: formValues.description,
       image: imageCid,
@@ -145,7 +146,9 @@ const OfferForm = ({accountdata}) => {
       itemOffered: cardetails,
       priceSpecification: pricedetails
     };
-    const listCreator = await createCeramicDoc(listoffer);
+    console.log("LIST OFFER",listoffer);
+    // const listCreator = await createCeramicDoc(listoffer);
+    const listCreator = await transactFluree(listoffer);
     console.log(listCreator);
   };
 
@@ -162,7 +165,7 @@ const OfferForm = ({accountdata}) => {
 
   async function fileUploadHandler(event: any) {
     const token = process.env.REACT_APP_WEB3STORAGE_TOKEN;
-    console.log("THE TOKEN ----------->>>>", token);
+    // console.log("THE TOKEN ----------->>>>", token);
     if (!token) {
       return console.error(
         "A token is needed. You can create one on https://web3.storage"
@@ -174,7 +177,7 @@ const OfferForm = ({accountdata}) => {
       name: "image",
     });
     setimageCid(cid);
-    console.log("IMAGE CID ------------->>>", cid);
+    // console.log("IMAGE CID ------------->>>", cid);
 
 
   }
@@ -188,11 +191,11 @@ const OfferForm = ({accountdata}) => {
 
   const handleValidFromChange = (newValue: Dayjs | null) => {
     setValidF(newValue);
-    console.log(validF);
+    // console.log(validF);
   };
   const handleValidThroughChange = (newValue: Dayjs | null) => {
     setValidT(newValue);
-    console.log(validT);
+    // console.log(validT);
   };
   
   return (
