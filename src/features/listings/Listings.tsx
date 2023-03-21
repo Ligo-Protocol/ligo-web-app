@@ -1,8 +1,3 @@
-import { DID } from "dids";
-import { Ed25519Provider } from "key-did-provider-ed25519";
-import { getResolver } from "key-did-resolver";
-import { ComposeClient } from "@composedb/client";
-import { definition } from "../../__generated__/definition.js";
 import { useEffect, useState } from "react";
 
 import Card from "@mui/material/Card";
@@ -17,94 +12,58 @@ import Grid from "@mui/material/Grid";
 
 import { Link } from "react-router-dom";
 
+import fetch from "node-fetch";
+
+// const query = { select: ["*"], from: "_collection" };
+const networkName = "fluree";
+const datasetID = process.env.REACT_APP_FLUREE_DATASET_ID;
+const APIKey = process.env.REACT_APP_FLUREE_API_KEY;
+
+const url = `https://api.dev.flur.ee/fdb/${networkName}/${datasetID}`;
+const headers = {
+  "Content-Type": "application/json",
+  Authorization: `Bearer ${APIKey}`,
+};
+
 export function Listings() {
   const [responseData, setResponseData] = useState<any>([]);
-  // Connect, Generate Seed and Authenticate
-  const compose = new ComposeClient({
-    ceramic: "https://ceramic-clay.oort.codyhatfield.me",
-    definition: definition as any,
-  });
-  // Generate seed
-  const txt = new TextEncoder();
-  function rng() {
-    let uID = "";
-    let length = 32;
-    let possible = "abcdef0123456789";
-    for (let i = 0; i < length; i++) {
-      uID += possible.charAt(Math.floor(Math.random() * possible.length));
-    }
-    return uID;
-  }
-  const hex = rng();
-  const seed = txt.encode(hex);
-
-  console.log(seed);
-  const DIDprovider = new Ed25519Provider(seed);
-  const did = new DID({ provider: DIDprovider, resolver: getResolver() });
 
   useEffect(() => {
-    const Resultprocessing = async (did) => {
-      await did.authenticate();
-      compose.setDID(did);
-      console.log("did.authenticated = ", did.authenticated);
-
-      // Get current viewer
-      const viewerResult = await compose.executeQuery(`
-          query {
-            viewer {
-              id
-            }
-          }
-        `);
-      console.log("viewerResult", viewerResult);
-
-      // Fetch offers
-      const fetchResult: any = await compose.executeQuery(`
-          query {
-            offerIndex(last: 20) {
-              edges {
-                node {
-                  id
-                  seller {
-                    id
-                  }
-                  description
-                  image
-                  itemOffered {
-                    vehicleIdentificationNumber
-                    modelDate
-                    brand {
-                      name
-                    }
-                  }
-                  areaServed {
-                    postalCode
-                  }
-                  priceSpecification {
-                    price
-                    priceCurrency
-                  }
-                  advanceBookingRequirement {
-                    value
-                    unitCode
-                  }
-                }
-              }
-            }
-          }
-        `);
-      console.log(
-        "fetch Result--->>>>>>>>>>",
-        fetchResult.data.offerIndex.edges
-      );
-      setResponseData(fetchResult.data.offerIndex.edges);
+    const Resultprocessing = async (query) => {
+      try {
+        const resp = await fetch(`${url}/query`, {
+          method: "POST",
+          headers: headers,
+          body: JSON.stringify(query),
+        });
+        const data = await resp.json();
+        setResponseData(data);
+        console.log("RETURNED DATA",data);
+      } catch (error) {
+        console.error(error);
+      }
     };
-    Resultprocessing(did).catch((error: any) => {
+    const query = {
+      "select": [
+        "images",
+        "description",
+        { 
+          "itemOffered": ["*", "vehicleIdentificationNumber", { "brand": ["name"] }, { "manufacturer": ["legalName"] }], 
+          "priceSpecification": ["currency", "price"],
+          "areaServed": ["postalCode"],
+          "advanceBookingRequirement" : ["value"],
+        }
+      ],
+      "from": "Offer"
+    };
+
+    Resultprocessing(query).catch((error: any) => {
       console.log(error);
     });
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
+  
   return (
     <>
       <Box sx={{ flexGrow: 1 }}>
@@ -123,20 +82,12 @@ export function Listings() {
                   component="div"
                   color={"blue"}
                 >
-                  {item.node.seller ? item.node.seller.id : "test:id"}
-                </Typography>
-                <Typography
-                  gutterBottom
-                  variant="h6"
-                  component="div"
-                  color={"blue"}
-                >
-                  {item.node.areaServed
-                    ? item.node.areaServed.address
+                  {item.areaServed
+                    ? item.areaServed.address
                     : "test:California"}
                   ,
-                  {item.node.areaServed
-                    ? item.node.areaServed.postalCode
+                  {item.areaServed
+                    ? item.areaServed.postalCode
                     : "test:54201352"}
                 </Typography>
                 <CardMedia
@@ -144,9 +95,9 @@ export function Listings() {
                   height="140"
                   // eslint-disable-next-line no-useless-concat
                   image={
-                    item.node.image
+                    item.images
                       ? "https://" +
-                        item.node.image +
+                        item.images +
                         ".ipfs.w3s.link/" +
                         "new_name.jpg"
                       : "https://bafybeih4lgsylefq3nw2ucdhvflsylkm5acr2dje5zexazbig4o6xmgfuq.ipfs.w3s.link/new_name.jpg"
@@ -160,28 +111,28 @@ export function Listings() {
                     color={"green"}
                   >
                     $
-                    {item.node.priceSpecification
-                      ? item.node.priceSpecification.price
+                    {item.priceSpecification
+                      ? item.priceSpecification.price
                       : "test" + 200}
                   </Typography>
 
                   <Typography gutterBottom component="div" color={"blue"}>
                     Advance Booking Requirement:
-                    {item.node.advanceBookingRequirement
-                      ? item.node.advanceBookingRequirement.value
+                    {item.advanceBookingRequirement
+                      ? item.advanceBookingRequirement.value
                       : "test:(" + 1}
-                    {item.node.advanceBookingRequirement
-                      ? item.node.advanceBookingRequirement.unitCode
+                    {item.advanceBookingRequirement
+                      ? item.advanceBookingRequirement.unitCode
                       : " hour)"}
                   </Typography>
                   <Typography variant="body2" color="text.secondary">
-                    {item.node.description
-                      ? item.node.description
+                    {item.description
+                      ? item.description
                       : "test:description"}
                   </Typography>
                 </CardContent>
                 <CardActions>
-                <Link to={{pathname: `/${item.node.id}`}} >
+                <Link to={{pathname: `/${item.images}`}} >
                     <Button variant="outlined" color="secondary">
                       View Offer
                     </Button>

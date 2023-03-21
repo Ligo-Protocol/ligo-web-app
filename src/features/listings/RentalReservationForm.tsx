@@ -77,7 +77,7 @@ const RentalReservationForm = ({accountdata, responseData}) => {
       <div>
             <h3>Rental car reservation details: </h3>
         <form onSubmit={handleSubmit}>
-            <div className={styles.longtext}>
+            {/* <div className={styles.longtext}>
                   {responseData?.seller?.id ?
                   <TextField
                     id="outlined-read-only-input"
@@ -88,14 +88,14 @@ const RentalReservationForm = ({accountdata, responseData}) => {
                       readOnly: true,
                     }}
                   />: null}
-            </div>
+            </div> */}
             <div className={styles.longtext}>
                   {responseData?.priceSpecification?.price ?
                   <TextField
                     id="outlined-read-only-input"
                     label="Price"
                     fullWidth
-                    defaultValue={responseData.priceSpecification.price.toString()+responseData.priceSpecification.priceCurrency+"/day"}
+                    defaultValue={responseData.priceSpecification.price.toString()+responseData.priceSpecification.currency+"/day"}
                     InputProps={{
                       readOnly: true,
                     }}

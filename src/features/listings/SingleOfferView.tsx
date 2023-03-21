@@ -6,13 +6,13 @@ import { Typography } from "@material-ui/core";
 
 export function SingleOfferView({responseData}){
 
-
     return(
-        <>{responseData?
+        <>
+        {responseData?
           <>
           <div className={styles.center}>
 
-              <div className={styles.longtext}>
+              {/* <div className={styles.longtext}>
                   {responseData?.id ?
                   <TextField
                     id="outlined-read-only-input"
@@ -35,11 +35,11 @@ export function SingleOfferView({responseData}){
                       readOnly: true,
                     }}
                   />: null}
-                </div>
+                </div> */}
                 <div className={styles.image}>
-                  {responseData?.image ?
+                  {responseData?.images ?
                   <img src={"https://" +
-                  responseData.image +
+                  responseData.images +
                     ".ipfs.w3s.link/" +
                     "new_name.jpg"
               } alt="Offered Car" width="600"/>
@@ -70,8 +70,8 @@ export function SingleOfferView({responseData}){
                     color="inherit"
                   >
                    {responseData?.itemOffered?.brand?.name ? responseData.itemOffered.brand.name: "Brand Name : N/A"},
-                   {responseData?.itemOffered?.model ? responseData.itemOffered.model: "Model Name : N/A"},
-                   {responseData?.itemOffered?.modelDate ? responseData.itemOffered.modelDate: "Model Date : N/A"}
+                   {/* {responseData?.itemOffered?.model ? responseData.itemOffered.model: "Model Name : N/A"},
+                   {responseData?.itemOffered?.modelDate ? responseData.itemOffered.modelDate: "Model Date : N/A"} */}
                   </Typography>
                 </div>
                 <div className={styles.center}>
@@ -98,7 +98,7 @@ export function SingleOfferView({responseData}){
                    </Typography>
                 </div>
                       <br/>
-                <div className={styles.center}>
+                {/* <div className={styles.center}>
                     <Typography
                         gutterBottom
                         variant="h6"
@@ -108,7 +108,7 @@ export function SingleOfferView({responseData}){
                       {responseData?.priceSpecification?.validFrom ? responseData.priceSpecification.validFrom: "Price : N/A"}&nbsp; to &nbsp; 
                       {responseData?.priceSpecification?.validThrough ? responseData.priceSpecification.validThrough: "Price Currency : N/A"}.
                    </Typography>
-                </div>
+                </div> */}
           </div>
           </>
           : "N/A"}
